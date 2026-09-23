@@ -1,0 +1,21 @@
+# Build & Output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment Variables & Secrets
+.env
+.env.production
+.env.local
+*.local
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -525,7 +525,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-cyber-muted" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-cyber-muted z-10 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
@@ -536,7 +536,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-muted hover:text-cyber-text"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-muted hover:text-cyber-text z-10"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -553,7 +553,9 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-200 whitespace-nowrap ${
                       isSelected
-                        ? 'bg-cyber-accent text-black font-bold shadow-md shadow-cyber-accent/25'
+                        ? isLightMode
+                          ? 'bg-cyber-accent text-white font-bold shadow-md shadow-cyber-accent/25'
+                          : 'bg-cyber-accent text-black font-bold shadow-md shadow-cyber-accent/25'
                         : 'bg-cyber-card border border-cyber-border text-cyber-muted hover:text-cyber-text hover:border-cyber-accent/50'
                     }`}
                   >

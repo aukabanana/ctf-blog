@@ -618,6 +618,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
                 <ChallengeCard
                   key={w.id}
                   writeup={w}
+                  activeTheme={themeProfile}
                   onSelect={(item) => setActiveWriteup(item)}
                 />
               ))}

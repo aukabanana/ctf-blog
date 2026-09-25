@@ -1,7 +1,7 @@
 import React from 'react';
 import { Shield, ChevronRight } from 'lucide-react';
 import { DecryptedText } from './DecryptedText';
-import { CATEGORY_COLORS, DIFFICULTY_COLORS } from './MissionDossier';
+import { CATEGORY_COLORS, CATEGORY_COLORS_MONO, DIFFICULTY_COLORS, DIFFICULTY_COLORS_MONO } from './MissionDossier';
 
 export interface WriteupItem {
   id: string;
@@ -33,12 +33,17 @@ export interface WriteupItem {
 
 interface ChallengeCardProps {
   writeup: WriteupItem;
+  activeTheme?: string;
   onSelect: (writeup: WriteupItem) => void;
 }
 
-export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, onSelect }) => {
-  const catStyle = CATEGORY_COLORS[writeup.category] || CATEGORY_COLORS.Misc;
-  const diffStyle = DIFFICULTY_COLORS[writeup.difficulty] || DIFFICULTY_COLORS.Medium;
+export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeTheme, onSelect }) => {
+  const isMono = activeTheme === 'mono';
+  const catMap = isMono ? CATEGORY_COLORS_MONO : CATEGORY_COLORS;
+  const diffMap = isMono ? DIFFICULTY_COLORS_MONO : DIFFICULTY_COLORS;
+  const catStyle = catMap[writeup.category] || catMap.Misc || CATEGORY_COLORS.Misc;
+  const diffStyle = diffMap[writeup.difficulty] || diffMap.Medium || DIFFICULTY_COLORS.Medium;
+
 
   return (
     <div

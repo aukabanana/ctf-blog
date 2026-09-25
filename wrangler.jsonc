@@ -2,9 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ctf-blog",
   "main": "dist/_worker.js/index.js",
-  "compatibility_date": "2025-03-01",
+  "compatibility_date": "2026-09-21",
   "compatibility_flags": [
-    "nodejs_compat"
+    "nodejs_compat",
+    "expose_global_message_channel"
   ],
   "observability": {
     "enabled": true

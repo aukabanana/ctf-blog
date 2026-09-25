@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ctf-blog",
+  "main": "dist/_worker.js/index.js",
+  "compatibility_date": "2025-03-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "dist"
+  }
+}

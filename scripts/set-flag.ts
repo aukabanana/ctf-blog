@@ -1,13 +1,20 @@
 import 'dotenv/config';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const rawUrl = process.env.PUBLIC_SUPABASE_URL || '';
+const supabaseUrl = rawUrl
+  .trim()
+  .replace(/^["']|["']$/g, '')
+  .replace(/\/rest\/v1\/?$/, '')
+  .replace(/\/+$/, '');
+const serviceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim().replace(/^["']|["']$/g, '');
 
 if (!supabaseUrl || !serviceKey) {
   console.error('\x1b[31m[ERROR] Missing PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env\x1b[0m');
   process.exit(1);
 }
+
+console.log(`\x1b[90m[DEBUG] Target URL:\x1b[0m ${supabaseUrl}`);
 
 const slug = process.argv[2];
 const flag = process.argv[3];
@@ -31,6 +38,9 @@ async function setFlag() {
 
   if (error) {
     console.error(`\x1b[31m[FAIL] Could not store flag:\x1b[0m`, error.message);
+    if ((error as any).details) console.error(`\x1b[90mDetails:\x1b[0m`, (error as any).details);
+    if ((error as any).hint) console.error(`\x1b[90mHint:\x1b[0m`, (error as any).hint);
+    if ((error as any).code) console.error(`\x1b[90mCode:\x1b[0m`, (error as any).code);
     process.exit(1);
   }
 

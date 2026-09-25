@@ -19,22 +19,22 @@ export const THEMES: Record<string, any> = {
     text: '#e2e8f0',
     muted: '#94a3b8',
   },
-  matrix: {
-    id: 'matrix',
-    name: 'Matrix Green',
-    vibe: 'Classic Hacker Terminal',
-    accent: '#00ff66',
-    secondary: '#00aa44',
-    bg: '#050c07',
-    surface: '#0b190e',
-    card: 'rgba(11, 25, 14, 0.8)',
-    border: 'rgba(0, 255, 102, 0.25)',
-    glow: '0 0 20px rgba(0, 255, 102, 0.3)',
-    tag: '#00ff66',
-    danger: '#ff3344',
-    warning: '#ffbb00',
-    text: '#d1fae5',
-    muted: '#6ee7b7',
+  mono: {
+    id: 'mono',
+    name: 'Mono White',
+    vibe: 'Minimal / Clean Editor',
+    accent: '#f0f0f0',
+    secondary: '#a0a0a0',
+    bg: '#0d0d0d',
+    surface: '#161616',
+    card: 'rgba(22, 22, 22, 0.85)',
+    border: 'rgba(240, 240, 240, 0.15)',
+    glow: '0 0 20px rgba(240, 240, 240, 0.08)',
+    tag: '#a0a0a0',
+    danger: '#ff4757',
+    warning: '#ffa502',
+    text: '#e8e8e8',
+    muted: '#6b6b6b',
   },
   blood: {
     id: 'blood',
@@ -119,7 +119,7 @@ export const QuakeTerminal: React.FC<QuakeTerminalProps> = ({
   • ls | list                 : List all CTF writeups with IDs and stats
   • filter <category>         : Filter writeup grid (web, pwn, crypto, rev, forensics, osint, all)
   • open <id>                 : Open a writeup reader by ID (e.g. open cve-2024-9134-neural)
-  • theme <tokyo|matrix|blood>: Switch visual theme profile dynamically
+  • theme <tokyo|mono|blood>: Switch visual theme profile dynamically
   • crt toggle                : Turn CRT monitor scanlines on or off
   • whoami                    : Display authenticated player handle and rank
   • cat flag                  : Query hidden master easter egg flag
@@ -170,7 +170,7 @@ export const QuakeTerminal: React.FC<QuakeTerminalProps> = ({
             setTheme(arg);
             newHistory.push({ text: `[+] Switched theme profile to: ${THEMES[arg].name}`, type: 'success' });
           } else {
-            newHistory.push({ text: 'Usage: theme <tokyo | matrix | blood>', type: 'error' });
+            newHistory.push({ text: 'Usage: theme <tokyo | mono | blood>', type: 'error' });
           }
           break;
 

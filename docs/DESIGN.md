@@ -2,7 +2,7 @@
 
 ## Theme
 
-Cyber / Glassmorphism dark-first design with optional light mode.
+Cyber / Glassmorphism dark-first design with optional light mode and signature hacker aesthetics.
 
 ## Color Palette
 
@@ -21,6 +21,14 @@ Cyber / Glassmorphism dark-first design with optional light mode.
 | `cyber-danger`     | `#ff4757`              | Error / destructive         |
 | `cyber-warning`    | `#ffa502`              | Warning                     |
 | `cyber-success`    | `#00ffaa`              | Success (same as accent)    |
+
+### Theme Color Profiles (Signature Switcher)
+
+| Profile Name       | Accent (`cyber-accent`) | Secondary (`cyber-secondary`) | Vibe / Mood                 |
+| ------------------ | ----------------------- | ----------------------------- | --------------------------- |
+| **Tokyo Cyan**     | `#00d4ff` (Cyan)        | `#00ffaa` (Neon Green)        | Cyberpunk Default           |
+| **Matrix Green**   | `#00ff66` (Phosphor)    | `#00aa44` (Terminal Green)    | Classic Hacker Terminal     |
+| **Red Team Blood** | `#ff3344` (Crimson)     | `#ff8800` (Amber Flare)       | Offensive / Exploitation    |
 
 ### Light Mode
 
@@ -50,6 +58,52 @@ Use Tailwind's default spacing scale (`4px` base unit).
 - Section gaps: `gap-6`
 - Page margins: `px-4` (mobile), `px-8` (desktop), max-width `7xl` centered
 
+---
+
+## Signature Features & Cyber Identity
+
+### 1. Text Decryption / Hacker Scramble Effect
+- **Application:** Challenge card titles, category pills on hover, and page titles on initial load.
+- **Behavior:** On hover or entrance, characters randomly shuffle through hex bytes and cyber glyphs (`0x`, `*`, `%`, `&`, `?`, `!`, `_`) for 400ms before snapping into readable text.
+
+### 2. Dropdown Quake Terminal (`~` or `Ctrl+K`)
+- **HUD Drawer:** Pulls down from top screen with a backdrop blur and neon top border.
+- **Prompt:** `studio@vault:~$ `
+- **Supported Commands:**
+  - `help` — Lists all available interactive shell commands.
+  - `ls` / `list` — Lists all writeups with IDs and categories.
+  - `filter <category>` — Dynamically filters the dashboard challenge grid (e.g. `filter pwn`).
+  - `whoami` — Prints author persona, specialization, and team handle.
+  - `cat flag` — Easter egg responses (e.g., *"Nice try! The flag is protected by something RLS 😉"*).
+  - `clear` — Clears terminal buffer.
+  - `theme <profile>` — Switches color theme dynamically (`tokyo`, `matrix`, `blood`).
+
+### 3. Target Mission Dossier & Kill Chain Breadcrumb Bar
+- **Target Dossier Box (Header of Writeup Reader):**
+  - Displays structured CTF metadata badge grid:
+    - `TARGET IP:` e.g. `10.10.11.45`
+    - `OS / PLATFORM:` Linux (Debian 12) / Windows
+    - `ARCHITECTURE:` x86_64 / ARM / Web-only
+    - `DIFFICULTY & POINTS:` e.g. Medium (250 pts)
+    - `CVE IDENTIFIERS:` e.g. CVE-2024-xxxx (if applicable)
+- **Interactive Kill Chain Breadcrumbs:**
+  - Top progress tracker on write-ups:
+    `[1. Recon] ➔ [2. Vuln Discovery] ➔ [3. Exploitation] ➔ [4. PrivEsc] ➔ [5. Root & Flag]`
+  - Clicking any step smoothly scrolls the reader directly to that section.
+
+### 4. Retro CRT Scanline & Ambient FX Switcher
+- Subtle scanline overlay (`pointer-events: none`) simulating a retro cathode-ray hacker monitor.
+- Can be toggled on/off with an icon button in the header/footer (defaults to off/clean, user can toggle on).
+
+### 5. Authentic Shell Terminal Code Blocks with Exploit Downloader
+- **Header:** Emulates a true Unix terminal:
+  - Three colored window controls (Red `#ff5f56`, Yellow `#ffbd2e`, Green `#27c93f`).
+  - Active path label: `studio@pwnbox:~/studio-comp/challenge$`
+  - Copy to clipboard button with tactile feedback.
+- **Exploit Download Action:** For Python/Shell exploit scripts, provides a direct "Download `.py`" or "Download Script" button.
+
+---
+
 ## Component Specs
 
 ### Glass Card
@@ -57,7 +111,7 @@ Use Tailwind's default spacing scale (`4px` base unit).
 - Background: `cyber-card` with `backdrop-blur-xl saturate-[180%]`
 - Border: 1px solid `cyber-border`
 - Border radius: `rounded-xl`
-- Hover: border transitions to `cyber-accent`, subtle glow shadow
+- Hover: border transitions to `cyber-accent`, subtle glow shadow (`shadow-cyber-glow`)
 
 ### Badge
 
@@ -67,22 +121,20 @@ Use Tailwind's default spacing scale (`4px` base unit).
 
 ### Spoiler Flag Box
 
-- Glass card with dashed border
-- Flag text blurred (8px) by default
-- "Reveal" button: solid accent button
-- Revealed state: remove blur, show confetti, display copy button
-
-### Terminal Code Block
-
-- Header bar: dark `#16161e` with three colored dots (red, yellow, green)
-- Body: Tokyo Night theme via Shiki
-- Copy button: top-right corner, icon-only
+- Glass card with dashed neon border
+- Flag text blurred (`filter: blur(8px)`) and hidden by default
+- "Reveal Flag" action button: solid accent button with key/lock icon
+- Revealed state: queries `/api/flag`, unblurs text, triggers Confetti burst, and presents a "Copy Flag" button
 
 ### Navigation Bar
 
-- Fixed top, glass effect, full-width
-- Logo/title left, nav links right
-- Mobile: hamburger → slide-out menu
+- Fixed top, glass effect (`backdrop-blur-md`), full-width
+- Logo with neon pulse dot and title on left
+- Interactive Terminal quick-launch badge (`~` or `Ctrl+K`)
+- Theme color profile switcher and GitHub link on right
+- Mobile: responsive hamburger dropdown
+
+---
 
 ## Responsive Breakpoints
 

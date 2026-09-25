@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import { VaultApp, SAMPLE_WRITEUPS } from '../components/isles/VaultApp';
+import { getCollection } from 'astro:content';
+
+let localWriteups: any[] = [];
+try {
+  const collection = await getCollection('writeups');
+  if (collection && collection.length > 0) {
+    localWriteups = collection
+      .filter((entry) => !entry.id.startsWith('_'))
+      .map((entry) => {
+        const body = entry.body || '';
+
+        // Split body into sections by "## " headers
+        const rawSections = body.split(/(?=^##\s+)/m).filter((s) => s.trim().length > 0);
+
+        const sections = rawSections.map((raw) => {
+          const lines = raw.trim().split('\n');
+          const titleLine = lines[0].replace(/^##\s+/, '').trim();
+          const rest = lines.slice(1).join('\n');
+
+          // Extract code block if present
+          const codeMatch = rest.match(/```(\w+)?\n([\s\S]*?)```/);
+          let code: string | undefined = undefined;
+          let language: string | undefined = undefined;
+          let content = rest;
+
+          if (codeMatch) {
+            language = codeMatch[1] || 'bash';
+            code = codeMatch[2].trim();
+            content = rest.replace(/```(\w+)?\n[\s\S]*?```/, '').trim();
+          }
+
+          return {
+            title: titleLine,
+            content: content || 'Detailed walkthrough steps and analysis.',
+            code,
+            language,
+          };
+        });
+
+        const killChain = sections.map((sec, idx) => ({
+          id: `step-${idx + 1}`,
+          name: `${idx + 1}. ${sec.title.replace(/^Phase\s*\d*:\s*/i, '').slice(0, 18)}`,
+          label: sec.title,
+        }));
+
+        const id = entry.id.replace(/\.md$/, '');
+
+        return {
+          id,
+          title: entry.data.title,
+          category: entry.data.category,
+          difficulty: entry.data.difficulty,
+          points: entry.data.points,
+          author: entry.data.author || 'STUDIO',
+          date: entry.data.solvedDate.toISOString().split('T')[0],
+          summary: entry.data.summary || '',
+          dossier: entry.data.dossier || {
+            targetIp: '10.10.11.x',
+            os: 'Linux',
+            arch: 'x86_64',
+            cve: entry.data.tags[0] || 'CTF Challenge',
+            services: ['HTTP / Web Services'],
+          },
+          killChain: killChain.length > 0 ? killChain : [
+            { id: 'step-1', name: '1. Recon', label: 'Reconnaissance' },
+            { id: 'step-2', name: '2. Exploit', label: 'Exploitation' },
+            { id: 'step-3', name: '3. Root & Flag', label: 'Capture Flag' },
+          ],
+          sections: sections.length > 0 ? sections : [
+            {
+              title: 'Exploitation Walkthrough',
+              content: body,
+            },
+          ],
+        };
+      });
+  }
+} catch (e) {
+  // Use default fallback if any collection error occurs
+}
+
+// If you have real markdown writeups, show only those! Fallback to samples only if empty.
+const displayWriteups = localWriteups.length > 0 ? localWriteups : SAMPLE_WRITEUPS;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>STUDIO Comp CTF Vault — Offensive Security Archives</title>
+    <meta
+      name="description"
+      content="Comprehensive CTF writeup repository and offensive security archives from STUDIO Comp."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-cyber-bg text-cyber-text antialiased selection:bg-cyber-accent selection:text-black">
+    <VaultApp client:load initialWriteups={displayWriteups} />
+  </body>
+</html>

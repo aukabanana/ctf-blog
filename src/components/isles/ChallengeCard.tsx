@@ -74,7 +74,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
               border: `1px solid ${diffStyle.border}`,
             }}
           >
-            {writeup.difficulty} • {writeup.points} pts
+            {writeup.difficulty}
           </span>
         </div>
 

@@ -6,6 +6,7 @@ interface TerminalCodeBlockProps {
   language?: string;
   path?: string;
   downloadName?: string;
+  activeTheme?: string;
 }
 
 export const TerminalCodeBlock: React.FC<TerminalCodeBlockProps> = ({
@@ -13,8 +14,10 @@ export const TerminalCodeBlock: React.FC<TerminalCodeBlockProps> = ({
   language = 'bash',
   path = 'studio@pwnbox:~/vault$',
   downloadName,
+  activeTheme,
 }) => {
   const [copied, setCopied] = useState(false);
+  const isMono = activeTheme === 'mono';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -40,9 +43,9 @@ export const TerminalCodeBlock: React.FC<TerminalCodeBlockProps> = ({
       {/* Shell Titlebar */}
       <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-cyber-surface/90 border-b border-cyber-border/40 select-none">
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm shadow-red-500/40" />
-          <div className="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm shadow-yellow-500/40" />
-          <div className="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm shadow-green-500/40" />
+          <div className={`w-3 h-3 rounded-full ${isMono ? 'bg-[#555555]' : 'bg-[#ff5f56] shadow-sm shadow-red-500/40'}`} />
+          <div className={`w-3 h-3 rounded-full ${isMono ? 'bg-[#444444]' : 'bg-[#ffbd2e] shadow-sm shadow-yellow-500/40'}`} />
+          <div className={`w-3 h-3 rounded-full ${isMono ? 'bg-[#333333]' : 'bg-[#27c93f] shadow-sm shadow-green-500/40'}`} />
           <span className="text-[11px] sm:text-xs text-cyber-muted ml-2 font-mono truncate max-w-[200px] sm:max-w-md">
             {path}
           </span>

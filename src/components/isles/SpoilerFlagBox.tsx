@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Lock, Unlock, Copy, Check, Loader2 } from 'lucide-react';
-import { triggerConfettiBurst } from './confetti';
 
 interface SpoilerFlagBoxProps {
   flag?: string;
@@ -17,7 +16,6 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
   const handleReveal = async () => {
     if (flag) {
       setRevealed(true);
-      triggerConfettiBurst();
       return;
     }
 
@@ -32,7 +30,6 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
         const data = await res.json();
         setFlag(data.flag || 'STUDIO{flag_not_found_in_database}');
         setRevealed(true);
-        triggerConfettiBurst();
       } catch (err: any) {
         setError(err.message || 'Failed to retrieve flag');
       } finally {
@@ -41,7 +38,6 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
     } else {
       setFlag('STUDIO{dummy_preview_flag_here}');
       setRevealed(true);
-      triggerConfettiBurst();
     }
   };
 

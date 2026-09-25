@@ -317,10 +317,6 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
     });
   }, [writeups, selectedCategory, selectedDifficulty, searchQuery]);
 
-  // Total points calculation
-  const totalPoints = useMemo(() => {
-    return writeups.reduce((sum, w) => sum + (w.points || 0), 0);
-  }, [writeups]);
 
   // Dynamic CSS Variables based on active profile and light mode
   const cssThemeVariables: React.CSSProperties = useMemo(() => {
@@ -440,14 +436,22 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
             </button>
 
             {/* Theme Profile Switcher Dropdown */}
-            <div className="hidden sm:flex items-center space-x-1 bg-cyber-surface p-1 rounded-lg border border-cyber-border text-xs font-mono">
+            <div
+              className={`hidden sm:flex items-center space-x-1 bg-cyber-surface p-1 rounded-lg border border-cyber-border text-xs font-mono transition ${
+                isLightMode ? 'opacity-40 cursor-not-allowed' : ''
+              }`}
+              title={isLightMode ? 'Theme profiles are disabled in Light Mode' : undefined}
+            >
               <span className="text-cyber-muted px-1 text-[11px]">THEME:</span>
               {Object.keys(THEMES).map((tKey) => (
                 <button
                   key={tKey}
-                  onClick={() => setThemeProfile(tKey)}
+                  onClick={() => !isLightMode && setThemeProfile(tKey)}
+                  disabled={isLightMode}
                   className={`px-2 py-0.5 rounded text-[11px] transition ${
-                    themeProfile === tKey && !isLightMode
+                    isLightMode
+                      ? 'text-cyber-muted cursor-not-allowed'
+                      : themeProfile === tKey
                       ? 'bg-cyber-accent text-black font-bold'
                       : 'text-cyber-muted hover:text-cyber-text'
                   }`}
@@ -477,6 +481,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
       {activeWriteup ? (
         <WriteupReader
           writeup={activeWriteup}
+          activeTheme={themeProfile}
           onBack={() => setActiveWriteup(null)}
         />
       ) : (
@@ -500,14 +505,10 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
               </p>
 
               {/* Quick stats counter */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
                   <div className="text-cyber-muted uppercase text-[10px]">Archived Targets</div>
                   <div className="text-cyber-accent text-lg font-bold">{writeups.length} Machines</div>
-                </div>
-                <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
-                  <div className="text-cyber-muted uppercase text-[10px]">Total Points</div>
-                  <div className="text-cyber-text text-lg font-bold">{totalPoints.toLocaleString()} PTS</div>
                 </div>
                 <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
                   <div className="text-cyber-muted uppercase text-[10px]">Active Theme</div>

@@ -9,10 +9,11 @@ import type { WriteupItem } from './ChallengeCard';
 
 interface WriteupReaderProps {
   writeup: WriteupItem;
+  activeTheme?: string;
   onBack: () => void;
 }
 
-export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, onBack }) => {
+export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeTheme, onBack }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [writeup]);
@@ -54,6 +55,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, onBack })
         category={writeup.category}
         difficulty={writeup.difficulty}
         points={writeup.points}
+        activeTheme={activeTheme}
       />
 
       {/* Interactive Kill Chain Bar */}
@@ -86,6 +88,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, onBack })
                 language={sec.language || 'bash'}
                 path={`studio@pwnbox:~/${writeup.id}$`}
                 downloadName={sec.downloadName}
+                activeTheme={activeTheme}
               />
             )}
           </section>

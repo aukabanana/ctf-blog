@@ -43,6 +43,7 @@ interface MissionDossierProps {
   category: string;
   difficulty: string;
   points: number;
+  activeTheme?: string;
 }
 
 export const MissionDossier: React.FC<MissionDossierProps> = ({
@@ -50,9 +51,11 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
   category,
   difficulty,
   points,
+  activeTheme,
 }) => {
-  const catStyle = CATEGORY_COLORS[category] || CATEGORY_COLORS.Misc;
-  const diffStyle = DIFFICULTY_COLORS[difficulty] || DIFFICULTY_COLORS.Medium;
+  const isMono = activeTheme === 'mono';
+  const catStyle = (isMono ? CATEGORY_COLORS_MONO : CATEGORY_COLORS)[category] || CATEGORY_COLORS.Misc;
+  const diffStyle = (isMono ? DIFFICULTY_COLORS_MONO : DIFFICULTY_COLORS)[difficulty] || DIFFICULTY_COLORS.Medium;
 
   return (
     <div className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 mb-8 shadow-xl relative overflow-hidden">

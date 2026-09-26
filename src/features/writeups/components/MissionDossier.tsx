@@ -1,42 +1,34 @@
 import React from 'react';
 import { Crosshair, Radio, Server, Cpu, Shield } from 'lucide-react';
+import type { DossierData, BadgeStyle } from '../types';
 
-const MONO_BADGE = { bg: 'rgba(255,255,255,0.06)', text: '#a0a0a0', border: 'rgba(255,255,255,0.12)' };
+const MONO_BADGE: BadgeStyle = { bg: 'rgba(255,255,255,0.06)', text: '#a0a0a0', border: 'rgba(255,255,255,0.12)' };
 
-export const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  Web:      { bg: 'rgba(59, 130, 246, 0.2)',  text: '#60a5fa', border: 'rgba(59, 130, 246, 0.35)' },
-  Pwn:      { bg: 'rgba(239, 68, 68, 0.2)',   text: '#f87171', border: 'rgba(239, 68, 68, 0.35)'  },
-  Crypto:   { bg: 'rgba(168, 85, 247, 0.2)',  text: '#c084fc', border: 'rgba(168, 85, 247, 0.35)' },
-  Rev:      { bg: 'rgba(245, 158, 11, 0.2)',  text: '#fbbf24', border: 'rgba(245, 158, 11, 0.35)' },
-  Forensics:{ bg: 'rgba(20, 184, 166, 0.2)',  text: '#2dd4bf', border: 'rgba(20, 184, 166, 0.35)' },
-  OSINT:    { bg: 'rgba(6, 182, 212, 0.2)',   text: '#22d3ee', border: 'rgba(6, 182, 212, 0.35)'  },
-  Misc:     { bg: 'rgba(107, 114, 128, 0.2)', text: '#9ca3af', border: 'rgba(107, 114, 128, 0.35)'},
+export const CATEGORY_COLORS: Record<string, BadgeStyle> = {
+  Web:       { bg: 'rgba(59, 130, 246, 0.2)',  text: '#60a5fa', border: 'rgba(59, 130, 246, 0.35)' },
+  Pwn:       { bg: 'rgba(239, 68, 68, 0.2)',   text: '#f87171', border: 'rgba(239, 68, 68, 0.35)'  },
+  Crypto:    { bg: 'rgba(168, 85, 247, 0.2)',  text: '#c084fc', border: 'rgba(168, 85, 247, 0.35)' },
+  Rev:       { bg: 'rgba(245, 158, 11, 0.2)',  text: '#fbbf24', border: 'rgba(245, 158, 11, 0.35)' },
+  Forensics: { bg: 'rgba(20, 184, 166, 0.2)',  text: '#2dd4bf', border: 'rgba(20, 184, 166, 0.35)' },
+  OSINT:     { bg: 'rgba(6, 182, 212, 0.2)',   text: '#22d3ee', border: 'rgba(6, 182, 212, 0.35)'  },
+  Misc:      { bg: 'rgba(107, 114, 128, 0.2)', text: '#9ca3af', border: 'rgba(107, 114, 128, 0.35)'},
 };
 
-export const CATEGORY_COLORS_MONO: Record<string, { bg: string; text: string; border: string }> = {
+export const CATEGORY_COLORS_MONO: Record<string, BadgeStyle> = {
   Web: MONO_BADGE, Pwn: MONO_BADGE, Crypto: MONO_BADGE,
   Rev: MONO_BADGE, Forensics: MONO_BADGE, OSINT: MONO_BADGE, Misc: MONO_BADGE,
 };
 
-export const DIFFICULTY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+export const DIFFICULTY_COLORS: Record<string, BadgeStyle> = {
   Easy:   { bg: 'rgba(34, 197, 94, 0.2)',  text: '#4ade80', border: 'rgba(34, 197, 94, 0.4)'  },
   Medium: { bg: 'rgba(234, 179, 8, 0.2)',  text: '#facc15', border: 'rgba(234, 179, 8, 0.4)'  },
   Hard:   { bg: 'rgba(249, 115, 22, 0.2)', text: '#fb923c', border: 'rgba(249, 115, 22, 0.4)' },
   Insane: { bg: 'rgba(220, 38, 38, 0.25)', text: '#ef4444', border: 'rgba(220, 38, 38, 0.5)'  },
 };
 
-export const DIFFICULTY_COLORS_MONO: Record<string, { bg: string; text: string; border: string }> = {
+export const DIFFICULTY_COLORS_MONO: Record<string, BadgeStyle> = {
   Easy: MONO_BADGE, Medium: MONO_BADGE, Hard: MONO_BADGE, Insane: MONO_BADGE,
 };
-
-
-export interface DossierData {
-  targetIp: string;
-  os: string;
-  arch: string;
-  cve: string;
-  services?: string[];
-}
 
 interface MissionDossierProps {
   dossier: DossierData;

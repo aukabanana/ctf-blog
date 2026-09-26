@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { DecryptedText } from './DecryptedText';
+import { DecryptedText } from '@components/common/DecryptedText';
+import { TerminalCodeBlock } from '@components/common/TerminalCodeBlock';
 import { MissionDossier } from './MissionDossier';
 import { KillChainBar } from './KillChainBar';
-import { TerminalCodeBlock } from './TerminalCodeBlock';
-import { SpoilerFlagBox } from './SpoilerFlagBox';
-import type { WriteupItem } from './ChallengeCard';
+import { SpoilerFlagBox } from '@features/flags/components/SpoilerFlagBox';
+import type { WriteupItem } from '../types';
 
-interface WriteupReaderProps {
+export interface WriteupReaderProps {
   writeup: WriteupItem;
   activeTheme?: string;
   onBack: () => void;
@@ -95,7 +95,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
         ))}
       </div>
 
-      {/* Confetti Spoiler Flag Box */}
+      {/* Spoiler Flag Box */}
       <div className="mt-10">
         <h3 className="text-xs font-mono uppercase tracking-wider text-cyber-accent mb-2">
           Final Target Proof of Compromise

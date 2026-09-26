@@ -1,37 +1,15 @@
 import React from 'react';
 import { Shield, ChevronRight } from 'lucide-react';
-import { DecryptedText } from './DecryptedText';
-import { CATEGORY_COLORS, CATEGORY_COLORS_MONO, DIFFICULTY_COLORS, DIFFICULTY_COLORS_MONO } from './MissionDossier';
+import { DecryptedText } from '@components/common/DecryptedText';
+import {
+  CATEGORY_COLORS,
+  CATEGORY_COLORS_MONO,
+  DIFFICULTY_COLORS,
+  DIFFICULTY_COLORS_MONO
+} from './MissionDossier';
+import type { WriteupItem } from '../types';
 
-export interface WriteupItem {
-  id: string;
-  title: string;
-  category: string;
-  difficulty: string;
-  points: number;
-  author: string;
-  team?: string;
-  date: string;
-  summary: string;
-  dossier: {
-    targetIp: string;
-    os: string;
-    arch: string;
-    cve: string;
-    services?: string[];
-  };
-  killChain: Array<{ id: string; name: string; label?: string }>;
-  sections: Array<{
-    title: string;
-    content: string;
-    code?: string;
-    language?: string;
-    downloadName?: string;
-  }>;
-  flag?: string;
-}
-
-interface ChallengeCardProps {
+export interface ChallengeCardProps {
   writeup: WriteupItem;
   activeTheme?: string;
   onSelect: (writeup: WriteupItem) => void;
@@ -43,7 +21,6 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
   const diffMap = isMono ? DIFFICULTY_COLORS_MONO : DIFFICULTY_COLORS;
   const catStyle = catMap[writeup.category] || catMap.Misc || CATEGORY_COLORS.Misc;
   const diffStyle = diffMap[writeup.difficulty] || diffMap.Medium || DIFFICULTY_COLORS.Medium;
-
 
   return (
     <div

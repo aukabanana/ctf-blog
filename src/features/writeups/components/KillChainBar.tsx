@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import type { KillChainStep } from '../types';
 
-export interface KillChainStep {
-  id: string;
-  name: string;
-  label?: string;
-}
-
-interface KillChainBarProps {
+export interface KillChainBarProps {
   killChain: KillChainStep[];
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, Unlock, Copy, Check, Loader2 } from 'lucide-react';
 
-interface SpoilerFlagBoxProps {
+export interface SpoilerFlagBoxProps {
   flag?: string;
   slug?: string;
 }

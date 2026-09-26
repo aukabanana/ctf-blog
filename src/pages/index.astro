@@ -1,21 +1,24 @@
 ---
-import '../styles/global.css';
-import { VaultApp, SAMPLE_WRITEUPS } from '../components/isles/VaultApp';
-import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { VaultApp } from '@components/islands/VaultApp';
+import { SAMPLE_WRITEUPS } from '@features/writeups/data/sample-writeups';
+import type { WriteupItem, KillChainStep, WriteupSection } from '@features/writeups/types';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-let localWriteups: any[] = [];
+let localWriteups: WriteupItem[] = [];
+
 try {
   const collection = await getCollection('writeups');
   if (collection && collection.length > 0) {
     localWriteups = collection
-      .filter((entry) => !entry.id.startsWith('_'))
-      .map((entry) => {
+      .filter((entry: CollectionEntry<'writeups'>) => !entry.id.startsWith('_'))
+      .map((entry: CollectionEntry<'writeups'>) => {
         const body = entry.body || '';
 
         // Split body into sections by "## " headers
-        const rawSections = body.split(/(?=^##\s+)/m).filter((s) => s.trim().length > 0);
+        const rawSections = body.split(/(?=^##\s+)/m).filter((s: string) => s.trim().length > 0);
 
-        const sections = rawSections.map((raw) => {
+        const sections: WriteupSection[] = rawSections.map((raw: string) => {
           const lines = raw.trim().split('\n');
           const titleLine = lines[0].replace(/^##\s+/, '').trim();
           const rest = lines.slice(1).join('\n');
@@ -40,7 +43,7 @@ try {
           };
         });
 
-        const killChain = sections.map((sec, idx) => ({
+        const killChain: KillChainStep[] = sections.map((sec: WriteupSection, idx: number) => ({
           id: `step-${idx + 1}`,
           name: `${idx + 1}. ${sec.title.replace(/^Phase\s*\d*:\s*/i, '').slice(0, 18)}`,
           label: sec.title,
@@ -82,29 +85,13 @@ try {
   // Use default fallback if any collection error occurs
 }
 
-// If you have real markdown writeups, show only those! Fallback to samples only if empty.
+// If real markdown writeups exist, show those; otherwise fallback to sample writeups
 const displayWriteups = localWriteups.length > 0 ? localWriteups : SAMPLE_WRITEUPS;
 ---
 
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>auka-ctf-blog</title>
-    <meta
-      name="description"
-      content="Comprehensive CTF writeup repository and offensive security archives from STUDIO Comp."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-cyber-bg text-cyber-text antialiased selection:bg-cyber-accent selection:text-black">
-    <VaultApp client:load initialWriteups={displayWriteups} />
-  </body>
-</html>
+<BaseLayout
+  title="auka-ctf-blog | AUKA CTF Writeup Vault"
+  description="Comprehensive CTF writeup repository and offensive security archives from STUDIO Comp."
+>
+  <VaultApp client:load initialWriteups={displayWriteups} />
+</BaseLayout>

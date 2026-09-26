@@ -109,9 +109,6 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
           )}
         </div>
       </div>
-      <p className="text-[11px] text-cyber-muted mt-3">
-        * Flag submissions verified against STUDIO Comp competition scoreboard server.
-      </p>
     </div>
   );
 };

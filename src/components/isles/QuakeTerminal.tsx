@@ -79,7 +79,7 @@ export const QuakeTerminal: React.FC<QuakeTerminalProps> = ({
   setCrtActive,
 }) => {
   const [history, setHistory] = useState<Array<{ text: string; type: string }>>([
-    { text: 'STUDIO Comp CTF Writeup Vault — Quake HUD Shell v3.1', type: 'system' },
+    { text: 'AUKA CTF Writeup Vault — Quake HUD Shell v3.1', type: 'system' },
     { text: "Type 'help' for tactical commands or 'ls' to list catalog.", type: 'system' },
   ]);
   const [inputVal, setInputVal] = useState('');

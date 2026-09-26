@@ -28,6 +28,15 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeWriteup, setActiveWriteup] = useState<WriteupItem | null>(null);
 
+  const handleToggleLightMode = () => {
+    if (!isLightMode) {
+      setThemeProfile('tokyo');
+      setIsLightMode(true);
+    } else {
+      setIsLightMode(false);
+    }
+  };
+
   // Global hotkey: ~ or Ctrl+K opens Quake terminal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -210,7 +219,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
 
             {/* Light / Dark Mode Toggle */}
             <button
-              onClick={() => setIsLightMode((prev) => !prev)}
+              onClick={handleToggleLightMode}
               className="p-2 rounded-lg border border-cyber-border bg-cyber-surface hover:border-cyber-accent text-cyber-muted hover:text-cyber-text transition"
               title={isLightMode ? 'Switch to Dark Cyber Mode' : 'Switch to Light Mode'}
             >

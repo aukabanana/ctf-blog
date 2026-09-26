@@ -1,0 +1,40 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title?: string;
+  statusCode?: number;
+  message?: string;
+}
+
+const {
+  title = '404 - Target Not Found',
+  statusCode = 404,
+  message = 'SECURITY ADVISORY // REQUESTED TARGET CODESPACE DOES NOT EXIST',
+} = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <main class="min-h-screen flex items-center justify-center p-6 font-mono">
+    <div class="max-w-md w-full p-8 rounded-2xl border border-cyber-border bg-cyber-card backdrop-blur-2xl text-center shadow-2xl">
+      <div class="inline-block px-3 py-1 mb-4 rounded-full bg-cyber-danger/10 border border-cyber-danger/30 text-cyber-danger text-xs font-bold tracking-wider">
+        ANOMALY DETECTED :: ERROR_{statusCode}
+      </div>
+
+      <h1 class="text-4xl font-extrabold text-cyber-text tracking-tight mb-2">
+        {statusCode}
+      </h1>
+
+      <p class="text-xs text-cyber-muted leading-relaxed mb-6">
+        {message}
+      </p>
+
+      <a
+        href="/"
+        class="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-cyber-accent text-black font-semibold text-xs transition hover:opacity-90 shadow-lg shadow-cyber-accent/20"
+      >
+        <span>[ RETURN TO VAULT DASHBOARD ]</span>
+      </a>
+    </div>
+  </main>
+</BaseLayout>

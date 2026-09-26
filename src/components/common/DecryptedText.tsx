@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const GLYPHS = '0123456789ABCDEF0x*_$#%&!?~';
 
-interface DecryptedTextProps {
+export interface DecryptedTextProps {
   text: string;
   className?: string;
   hoverOnly?: boolean;

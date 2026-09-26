@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Copy, Check, Download } from 'lucide-react';
 
-interface TerminalCodeBlockProps {
+export interface TerminalCodeBlockProps {
   code: string;
   language?: string;
   path?: string;

@@ -13,5 +13,6 @@
   "assets": {
     "binding": "ASSETS",
     "directory": "dist"
-  }
+  },
+  "previews": {}
 }

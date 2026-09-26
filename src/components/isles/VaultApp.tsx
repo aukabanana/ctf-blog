@@ -353,7 +353,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
   return (
     <div
       style={cssThemeVariables}
-      className="min-h-screen text-cyber-text bg-cyber-bg transition-colors duration-300 font-sans selection:bg-cyber-accent selection:text-black relative"
+      className="min-h-screen flex flex-col text-cyber-text bg-cyber-bg transition-colors duration-300 font-sans selection:bg-cyber-accent selection:text-black relative"
     >
       {/* CRT Scanline Overlay Effect */}
       {crtActive && (
@@ -478,14 +478,15 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
       </header>
 
       {/* Main Body: Either Detail Reader or Vault Dashboard */}
-      {activeWriteup ? (
-        <WriteupReader
-          writeup={activeWriteup}
-          activeTheme={themeProfile}
-          onBack={() => setActiveWriteup(null)}
-        />
-      ) : (
-        <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 animate-fadeIn">
+      <main className="flex-1 w-full">
+        {activeWriteup ? (
+          <WriteupReader
+            writeup={activeWriteup}
+            activeTheme={themeProfile}
+            onBack={() => setActiveWriteup(null)}
+          />
+        ) : (
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 animate-fadeIn">
           {/* Hero Banner Section */}
           <div className="relative rounded-2xl border border-cyber-border bg-cyber-card backdrop-blur-2xl p-6 sm:p-10 mb-10 overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none" />
@@ -497,7 +498,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
               </div>
 
               <h1 className="text-2xl sm:text-5xl font-extrabold text-cyber-text tracking-tight font-mono mb-4">
-                <DecryptedText text="STUDIO Comp CTF Vault" speed={22} />
+                <DecryptedText text="AUKA CTF Vault" speed={22} />
               </h1>
 
               <p className="text-sm sm:text-base text-cyber-muted leading-relaxed mb-6 font-sans">
@@ -510,10 +511,10 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
                   <div className="text-cyber-muted uppercase text-[10px]">Archived Targets</div>
                   <div className="text-cyber-accent text-lg font-bold">{writeups.length} Machines</div>
                 </div>
-                <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
+                {/* <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
                   <div className="text-cyber-muted uppercase text-[10px]">Active Theme</div>
                   <div className="text-cyber-secondary text-lg font-bold uppercase">{curTheme.name}</div>
-                </div>
+                </div> */}
                 <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border/40">
                   <div className="text-cyber-muted uppercase text-[10px]">Terminal Hotkey</div>
                   <div className="text-cyber-text text-lg font-bold">~ or Ctrl+K</div>
@@ -625,15 +626,16 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
               ))}
             </div>
           )}
-        </main>
+        </div>
       )}
+      </main>
 
       {/* Footer */}
       <footer className="mt-20 border-t border-cyber-border/40 py-8 px-4 sm:px-8 text-xs font-mono text-cyber-muted bg-cyber-surface/60">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
-            <span>STUDIO Comp CTF Writeup Vault — Official Field Handbook</span>
+            <span>AUKA CTF Writeup Vault — Official Field Handbook</span>
           </div>
 
           <div className="flex items-center space-x-4">

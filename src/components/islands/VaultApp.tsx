@@ -155,8 +155,8 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
       />
 
       {/* Navigation Header */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-cyber-surface/85 border-b border-cyber-border px-4 sm:px-8 py-3 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-30 backdrop-blur-md bg-cyber-surface/85 border-b border-cyber-border transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">
           {/* Logo & Brand */}
           <div
             onClick={() => setActiveWriteup(null)}
@@ -442,8 +442,8 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
       </main>
 
       {/* Footer */}
-      <footer className="mt-20 border-t border-cyber-border/40 py-8 px-4 sm:px-8 text-xs font-mono text-cyber-muted bg-cyber-surface/60">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="mt-20 border-t border-cyber-border/40 text-xs font-mono text-cyber-muted bg-cyber-surface/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
             <span>AUKA CTF Writeup Vault — Official Field Handbook</span>

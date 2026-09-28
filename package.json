@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "wrangler dev",
     "astro": "astro",
     "flag:set": "tsx scripts/set-flag.ts",
     "upload:img": "tsx scripts/upload-image.ts"

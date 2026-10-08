@@ -3,7 +3,6 @@ title: "JWT None Algorithm & Key Confusion"
 event: "STUDIO Comp 2026"
 category: "Web"
 difficulty: "Medium"
-points: 250
 solvedDate: 2026-09-25
 tags: ["jwt", "auth-bypass", "crypto", "nodejs"]
 isPublic: true

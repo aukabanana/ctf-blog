@@ -34,7 +34,6 @@ interface MissionDossierProps {
   dossier: DossierData;
   category: string;
   difficulty: string;
-  points: number;
   activeTheme?: string;
 }
 
@@ -42,7 +41,6 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
   dossier,
   category,
   difficulty,
-  points,
   activeTheme,
 }) => {
   const isMono = activeTheme === 'mono';
@@ -79,7 +77,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
               border: `1px solid ${diffStyle.border}`,
             }}
           >
-            {difficulty} • {points} pts
+            {difficulty}
           </span>
         </div>
       </div>

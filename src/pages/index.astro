@@ -56,10 +56,10 @@ try {
           title: entry.data.title,
           category: entry.data.category,
           difficulty: entry.data.difficulty,
-          points: entry.data.points,
-          author: entry.data.author || 'STUDIO',
+          author: entry.data.author || 'AUKA',
           date: entry.data.solvedDate.toISOString().split('T')[0],
           summary: entry.data.summary || '',
+          flag: entry.data.flag,
           dossier: entry.data.dossier || {
             targetIp: '10.10.11.x',
             os: 'Linux',
@@ -91,7 +91,7 @@ const displayWriteups = localWriteups.length > 0 ? localWriteups : SAMPLE_WRITEU
 
 <BaseLayout
   title="auka-ctf-blog | AUKA CTF Writeup Vault"
-  description="Comprehensive CTF writeup repository and offensive security archives from STUDIO Comp."
+  description="Comprehensive CTF writeup repository and offensive security archives from AUKA CTF."
 >
   <VaultApp client:load initialWriteups={displayWriteups} />
 </BaseLayout>

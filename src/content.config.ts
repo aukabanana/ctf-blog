@@ -5,15 +5,15 @@ const writeups = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/writeups' }),
   schema: z.object({
     title: z.string(),
-    event: z.string().default('STUDIO Comp'),
+    event: z.string().default('AUKA CTF'),
     category: z.enum(['Web', 'Pwn', 'Crypto', 'Rev', 'Forensics', 'OSINT', 'Misc']),
     difficulty: z.enum(['Easy', 'Medium', 'Hard', 'Insane']),
-    points: z.number().default(100),
     solvedDate: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     isPublic: z.boolean().default(true),
-    author: z.string().default('STUDIO'),
+    author: z.string().default('AUKA'),
     summary: z.string().optional(),
+    flag: z.string().optional(),
     dossier: z
       .object({
         targetIp: z.string().default('10.10.11.x'),

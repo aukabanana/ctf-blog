@@ -83,7 +83,7 @@ export const QuakeTerminal: React.FC<QuakeTerminalProps> = ({
         case 'list':
           newHistory.push({
             text: writeups
-              .map((w) => `[${w.id}] :: ${w.title} (${w.category} | ${w.difficulty} | ${w.points}pts)`)
+              .map((w) => `[${w.id}] :: ${w.title} (${w.category} | ${w.difficulty})`)
               .join('\n'),
             type: 'output',
           });

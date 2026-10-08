@@ -54,7 +54,6 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
         dossier={writeup.dossier}
         category={writeup.category}
         difficulty={writeup.difficulty}
-        points={writeup.points}
         activeTheme={activeTheme}
       />
 

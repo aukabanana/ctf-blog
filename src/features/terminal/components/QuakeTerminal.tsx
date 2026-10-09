@@ -20,7 +20,7 @@ export interface QuakeTerminalProps {
 export const QuakeTerminal: React.FC<QuakeTerminalProps> = ({
   isOpen,
   onClose,
-  activeTheme,
+  activeTheme: _activeTheme,
   setTheme,
   onFilterCategory,
   onOpenWriteup,
@@ -217,7 +217,12 @@ Try reading the writeups to earn real operational flags!`,
 
           <div className="flex items-center space-x-3">
             <span className="text-[11px] text-cyber-muted hidden md:inline">
-              Active Theme: <span className="text-cyber-accent font-bold">{THEMES[activeTheme]?.name}</span>
+              Active Theme: <span className="text-cyber-accent font-bold">
+                <span className="theme-label-tokyo">Tokyo Cyan</span>
+                <span className="theme-label-mono">Mono White</span>
+                <span className="theme-label-blood">Red Team Blood</span>
+                <span className="theme-label-light">Emerald Light</span>
+              </span>
             </span>
             <button
               onClick={onClose}

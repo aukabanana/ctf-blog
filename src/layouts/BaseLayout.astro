@@ -125,6 +125,20 @@ const { title, description } = Astro.props;
         --cyber-warning: #d97706;
         --cyber-glow: 0 0 15px rgba(5, 150, 105, 0.2);
       }
+      .html-light-logo {
+        display: none !important;
+      }
+      .html-dark-logo {
+        display: block !important;
+      }
+      html.light .html-dark-logo,
+      html[data-theme="light"] .html-dark-logo {
+        display: none !important;
+      }
+      html.light .html-light-logo,
+      html[data-theme="light"] .html-light-logo {
+        display: block !important;
+      }
     </style>
     <BaseHead title={title} description={description} />
   </head>

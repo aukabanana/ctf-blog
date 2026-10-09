@@ -100,6 +100,22 @@ html.light .theme-label-light, html[data-theme="light"] .theme-label-light {
   display: inline;
 }
 
+/* Logo toggle for light/dark theme - zero hydration flash */
+.html-light-logo {
+  display: none !important;
+}
+.html-dark-logo {
+  display: block !important;
+}
+html.light .html-dark-logo,
+html[data-theme="light"] .html-dark-logo {
+  display: none !important;
+}
+html.light .html-light-logo,
+html[data-theme="light"] .html-light-logo {
+  display: block !important;
+}
+
 /* Monochrome style overrides for badges and terminal dots without hydration flash */
 html[data-theme="mono"] .mono-badge-override {
   background-color: rgba(255, 255, 255, 0.06) !important;

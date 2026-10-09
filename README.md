@@ -1,8 +1,11 @@
 # AUKA CTF Vault
 
 <div align="center">
-
-<img src="/public/favicon.svg" alt="auka" width="100" height="100">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./public/favicon-w.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./public/favicon-b.svg">
+  <img src="./public/favicon-w.svg" alt="auka" width="100" height="100">
+</picture>
 
 ### **Offensive Security Intelligence & CTF Exploitation Archives**
 
@@ -85,7 +88,8 @@ The codebase is structured following **Domain / Feature-Driven Clean Architectur
 ```text
 ctf-blog/
 ├── public/                    # Static assets
-│   ├── favicon.svg            # Custom SVG Brand Logo
+│   ├── favicon-w.svg          # Custom SVG Brand Logo (Dark theme)
+│   ├── favicon-b.svg          # Custom SVG Brand Logo (Light theme)
 │   └── robots.txt             # Search crawler directives
 ├── scripts/                   # Administrative automation CLI scripts
 │   ├── set-flag.ts            # Script to hash & store challenge flags in Supabase

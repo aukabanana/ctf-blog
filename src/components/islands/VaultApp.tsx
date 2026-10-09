@@ -265,9 +265,14 @@ export const VaultApp: React.FC<VaultAppProps> = ({
           >
             <div className="relative w-10 h-10 rounded-lg bg-cyber-accent/20 flex items-center justify-center shadow-md shadow-cyber-accent/20 p-1">
               <img
-                src="/favicon.svg"
+                src="/favicon-w.svg"
                 alt="AUKA Logo"
-                className="w-full h-full object-contain rounded"
+                className="w-full h-full object-contain rounded html-dark-logo"
+              />
+              <img
+                src="/favicon-b.svg"
+                alt="AUKA Logo"
+                className="w-full h-full object-contain rounded html-light-logo"
               />
               {/* <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-accent animate-pulse" /> */}
             </div>
@@ -278,7 +283,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({
                 <span className="text-cyber-accent">CTF</span>
                 <span>VAULT._.</span>
               </div>
-              
+
               <p className="text-[10px] text-cyber-muted font-mono hidden sm:block">
                 CTF Offensive Security Archives
               </p>

@@ -13,6 +13,119 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="en" class="dark">
   <head>
+    <script is:inline>
+      (function() {
+        try {
+          var isLight = localStorage.getItem('cyber_light_mode') === 'true';
+          var saved = localStorage.getItem('cyber_theme_profile') || 'tokyo';
+          var theme = isLight ? 'light' : saved;
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+
+          var themes = {
+            tokyo: {
+              bg: '#0a0e17', surface: '#111827', card: 'rgba(17, 24, 39, 0.75)',
+              border: 'rgba(0, 255, 170, 0.2)', accent: '#00ffaa', secondary: '#00d4ff',
+              text: '#e2e8f0', muted: '#94a3b8', danger: '#ff4757', warning: '#ffa502',
+              glow: '0 0 20px rgba(0, 255, 170, 0.25)'
+            },
+            mono: {
+              bg: '#0d0d0d', surface: '#161616', card: 'rgba(22, 22, 22, 0.85)',
+              border: 'rgba(240, 240, 240, 0.15)', accent: '#f0f0f0', secondary: '#a0a0a0',
+              text: '#e8e8e8', muted: '#5a5a5a', danger: '#cccccc', warning: '#999999',
+              glow: '0 0 20px rgba(240, 240, 240, 0.06)'
+            },
+            blood: {
+              bg: '#120709', surface: '#1f0d11', card: 'rgba(31, 13, 17, 0.8)',
+              border: 'rgba(255, 51, 68, 0.25)', accent: '#ff3344', secondary: '#ff8800',
+              text: '#ffe4e6', muted: '#fda4af', danger: '#ff1122', warning: '#ffa502',
+              glow: '0 0 20px rgba(255, 51, 68, 0.3)'
+            }
+          };
+          var lightTheme = {
+            bg: '#f8fafc', surface: '#ffffff', card: 'rgba(255, 255, 255, 0.85)',
+            border: 'rgba(5, 150, 105, 0.25)', accent: '#059669', secondary: '#0284c7',
+            text: '#0f172a', muted: '#475569', danger: '#e11d48', warning: '#d97706',
+            glow: '0 0 15px rgba(5, 150, 105, 0.2)'
+          };
+
+          var t = isLight ? lightTheme : (themes[saved] || themes.tokyo);
+          root.style.setProperty('--cyber-bg', t.bg);
+          root.style.setProperty('--cyber-surface', t.surface);
+          root.style.setProperty('--cyber-card', t.card);
+          root.style.setProperty('--cyber-border', t.border);
+          root.style.setProperty('--cyber-accent', t.accent);
+          root.style.setProperty('--cyber-secondary', t.secondary);
+          root.style.setProperty('--cyber-text', t.text);
+          root.style.setProperty('--cyber-muted', t.muted);
+          root.style.setProperty('--cyber-danger', t.danger);
+          root.style.setProperty('--cyber-warning', t.warning);
+          root.style.setProperty('--cyber-glow', t.glow);
+
+          if (isLight) {
+            root.classList.remove('dark');
+            root.classList.add('light');
+          } else {
+            root.classList.remove('light');
+            root.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style is:inline>
+      :root, html[data-theme="tokyo"] {
+        --cyber-bg: #0a0e17;
+        --cyber-surface: #111827;
+        --cyber-card: rgba(17, 24, 39, 0.75);
+        --cyber-border: rgba(0, 255, 170, 0.2);
+        --cyber-accent: #00ffaa;
+        --cyber-secondary: #00d4ff;
+        --cyber-text: #e2e8f0;
+        --cyber-muted: #94a3b8;
+        --cyber-danger: #ff4757;
+        --cyber-warning: #ffa502;
+        --cyber-glow: 0 0 20px rgba(0, 255, 170, 0.25);
+      }
+      html[data-theme="mono"] {
+        --cyber-bg: #0d0d0d;
+        --cyber-surface: #161616;
+        --cyber-card: rgba(22, 22, 22, 0.85);
+        --cyber-border: rgba(240, 240, 240, 0.15);
+        --cyber-accent: #f0f0f0;
+        --cyber-secondary: #a0a0a0;
+        --cyber-text: #e8e8e8;
+        --cyber-muted: #5a5a5a;
+        --cyber-danger: #cccccc;
+        --cyber-warning: #999999;
+        --cyber-glow: 0 0 20px rgba(240, 240, 240, 0.06);
+      }
+      html[data-theme="blood"] {
+        --cyber-bg: #120709;
+        --cyber-surface: #1f0d11;
+        --cyber-card: rgba(31, 13, 17, 0.8);
+        --cyber-border: rgba(255, 51, 68, 0.25);
+        --cyber-accent: #ff3344;
+        --cyber-secondary: #ff8800;
+        --cyber-text: #ffe4e6;
+        --cyber-muted: #fda4af;
+        --cyber-danger: #ff1122;
+        --cyber-warning: #ffa502;
+        --cyber-glow: 0 0 20px rgba(255, 51, 68, 0.3);
+      }
+      html.light, html[data-theme="light"] {
+        --cyber-bg: #f8fafc;
+        --cyber-surface: #ffffff;
+        --cyber-card: rgba(255, 255, 255, 0.85);
+        --cyber-border: rgba(5, 150, 105, 0.25);
+        --cyber-accent: #059669;
+        --cyber-secondary: #0284c7;
+        --cyber-text: #0f172a;
+        --cyber-muted: #475569;
+        --cyber-danger: #e11d48;
+        --cyber-warning: #d97706;
+        --cyber-glow: 0 0 15px rgba(5, 150, 105, 0.2);
+      }
+    </style>
     <BaseHead title={title} description={description} />
   </head>
   <body class="bg-cyber-bg text-cyber-text antialiased selection:bg-cyber-accent selection:text-black min-h-screen">

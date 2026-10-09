@@ -60,7 +60,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
         </div>
         <div className="flex items-center space-x-2">
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-semibold"
+            className="px-2.5 py-0.5 rounded-full text-xs font-semibold mono-badge-override"
             style={{
               backgroundColor: catStyle.bg,
               color: catStyle.text,
@@ -70,7 +70,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
             {category}
           </span>
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-semibold"
+            className="px-2.5 py-0.5 rounded-full text-xs font-semibold mono-badge-override"
             style={{
               backgroundColor: diffStyle.bg,
               color: diffStyle.text,

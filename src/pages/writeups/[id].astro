@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { VaultApp } from '@components/islands/VaultApp';
+import { getWriteups } from '@features/writeups/lib/get-writeups';
+import type { WriteupItem } from '@features/writeups/types';
+
+export async function getStaticPaths() {
+  const allWriteups = await getWriteups();
+  return allWriteups.map((writeup) => ({
+    params: { id: writeup.id },
+    props: { writeup, allWriteups },
+  }));
+}
+
+interface Props {
+  writeup: WriteupItem;
+  allWriteups: WriteupItem[];
+}
+
+const { writeup, allWriteups } = Astro.props;
+---
+
+<BaseLayout
+  title={`${writeup.title} | AUKA CTF Vault`}
+  description={writeup.summary || `${writeup.category} challenge writeup: ${writeup.title}`}
+>
+  <VaultApp
+    client:load
+    initialWriteups={allWriteups}
+    initialActiveWriteup={writeup}
+  />
+</BaseLayout>

@@ -3,9 +3,120 @@
 @tailwind utilities;
 
 @layer base {
+  :root, html[data-theme="tokyo"] {
+    --cyber-bg: #0a0e17;
+    --cyber-surface: #111827;
+    --cyber-card: rgba(17, 24, 39, 0.75);
+    --cyber-border: rgba(0, 255, 170, 0.2);
+    --cyber-accent: #00ffaa;
+    --cyber-secondary: #00d4ff;
+    --cyber-text: #e2e8f0;
+    --cyber-muted: #94a3b8;
+    --cyber-danger: #ff4757;
+    --cyber-warning: #ffa502;
+    --cyber-glow: 0 0 20px rgba(0, 255, 170, 0.25);
+  }
+
+  html[data-theme="mono"] {
+    --cyber-bg: #0d0d0d;
+    --cyber-surface: #161616;
+    --cyber-card: rgba(22, 22, 22, 0.85);
+    --cyber-border: rgba(240, 240, 240, 0.15);
+    --cyber-accent: #f0f0f0;
+    --cyber-secondary: #a0a0a0;
+    --cyber-text: #e8e8e8;
+    --cyber-muted: #5a5a5a;
+    --cyber-danger: #cccccc;
+    --cyber-warning: #999999;
+    --cyber-glow: 0 0 20px rgba(240, 240, 240, 0.06);
+  }
+
+  html[data-theme="blood"] {
+    --cyber-bg: #120709;
+    --cyber-surface: #1f0d11;
+    --cyber-card: rgba(31, 13, 17, 0.8);
+    --cyber-border: rgba(255, 51, 68, 0.25);
+    --cyber-accent: #ff3344;
+    --cyber-secondary: #ff8800;
+    --cyber-text: #ffe4e6;
+    --cyber-muted: #fda4af;
+    --cyber-danger: #ff1122;
+    --cyber-warning: #ffa502;
+    --cyber-glow: 0 0 20px rgba(255, 51, 68, 0.3);
+  }
+
+  html.light, html[data-theme="light"] {
+    --cyber-bg: #f8fafc;
+    --cyber-surface: #ffffff;
+    --cyber-card: rgba(255, 255, 255, 0.85);
+    --cyber-border: rgba(5, 150, 105, 0.25);
+    --cyber-accent: #059669;
+    --cyber-secondary: #0284c7;
+    --cyber-text: #0f172a;
+    --cyber-muted: #475569;
+    --cyber-danger: #e11d48;
+    --cyber-warning: #d97706;
+    --cyber-glow: 0 0 15px rgba(5, 150, 105, 0.2);
+  }
+
   body {
     @apply bg-cyber-bg text-cyber-text antialiased font-sans min-h-screen;
   }
+}
+
+/* Theme buttons pure CSS highlight - instantaneous, zero JS hydration delay */
+html:not([data-theme="mono"]):not([data-theme="blood"]):not(.light) [data-theme-btn="tokyo"],
+html[data-theme="tokyo"]:not(.light) [data-theme-btn="tokyo"] {
+  background-color: var(--cyber-accent) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+html[data-theme="mono"]:not(.light) [data-theme-btn="mono"] {
+  background-color: var(--cyber-accent) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+html[data-theme="blood"]:not(.light) [data-theme-btn="blood"] {
+  background-color: var(--cyber-accent) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+
+/* Theme name labels in Stats & HUD Quake Terminal - rendered via CSS */
+.theme-label-tokyo, .theme-label-mono, .theme-label-blood, .theme-label-light {
+  display: none;
+}
+html:not([data-theme="mono"]):not([data-theme="blood"]):not(.light) .theme-label-tokyo,
+html[data-theme="tokyo"]:not(.light) .theme-label-tokyo {
+  display: inline;
+}
+html[data-theme="mono"]:not(.light) .theme-label-mono {
+  display: inline;
+}
+html[data-theme="blood"]:not(.light) .theme-label-blood {
+  display: inline;
+}
+html.light .theme-label-light, html[data-theme="light"] .theme-label-light {
+  display: inline;
+}
+
+/* Monochrome style overrides for badges and terminal dots without hydration flash */
+html[data-theme="mono"] .mono-badge-override {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #a0a0a0 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+html[data-theme="mono"] .mono-dot-red {
+  background-color: #555555 !important;
+  box-shadow: none !important;
+}
+html[data-theme="mono"] .mono-dot-yellow {
+  background-color: #444444 !important;
+  box-shadow: none !important;
+}
+html[data-theme="mono"] .mono-dot-green {
+  background-color: #333333 !important;
+  box-shadow: none !important;
 }
 
 /* Custom scrollbar */

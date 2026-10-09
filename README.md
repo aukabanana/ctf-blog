@@ -238,6 +238,20 @@ Continuous Deployment is pre-configured via **Cloudflare Workers Builds** on Git
 
 ---
 
+## 📦 Releases & Versioning
+
+AUKA CTF Vault uses [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.PATCH`) with automated GitHub Actions CI/CD releases.
+
+For version number conventions, release procedures, and tagging instructions, see the [Versioning & Release Guide](docs/VERSIONING.md).
+
+```bash
+# Example: release a new patch
+pnpm version patch
+git push --follow-tags
+```
+
+---
+
 ## License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.

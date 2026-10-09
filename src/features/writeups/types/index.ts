@@ -29,6 +29,7 @@ export interface WriteupItem {
   title: string;
   category: string;
   difficulty: string;
+  event?: string;
   author: string;
   team?: string;
   date: string;

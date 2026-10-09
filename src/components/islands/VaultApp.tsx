@@ -24,30 +24,139 @@ export { SAMPLE_WRITEUPS };
 
 export interface VaultAppProps {
   initialWriteups?: WriteupItem[];
+  initialActiveWriteup?: WriteupItem;
 }
 
-export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
+export const VaultApp: React.FC<VaultAppProps> = ({
+  initialWriteups,
+  initialActiveWriteup,
+}) => {
   const writeups =
     initialWriteups && initialWriteups.length > 0
       ? initialWriteups
       : SAMPLE_WRITEUPS;
 
-  const [themeProfile, setThemeProfile] = useState("tokyo");
-  const [isLightMode, setIsLightMode] = useState(false);
+  const [themeProfile, setThemeProfile] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("cyber_theme_profile");
+        if (saved && THEMES[saved]) return saved;
+      } catch {}
+    }
+    return "tokyo";
+  });
+
+  const [isLightMode, setIsLightMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("cyber_light_mode");
+        if (saved !== null) return saved === "true";
+      } catch {}
+    }
+    return false;
+  });
+
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [crtActive, setCrtActive] = useState(false);
+
+  const [crtActive, setCrtActive] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("cyber_crt_active");
+        if (saved !== null) return saved === "true";
+      } catch {}
+    }
+    return false;
+  });
+
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeWriteup, setActiveWriteup] = useState<WriteupItem | null>(null);
+  const [activeWriteup, setActiveWriteup] = useState<WriteupItem | null>(
+    initialActiveWriteup || null
+  );
+
+  const handleNavigateHome = () => {
+    try {
+      window.history.pushState({ writeupId: null }, "", "/");
+    } catch {}
+    setActiveWriteup(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleOpenWriteup = (w: WriteupItem) => {
+    try {
+      window.history.pushState({ writeupId: w.id }, "", `/writeups/${w.id}`);
+    } catch {}
+    setActiveWriteup(w);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const syncThemeToDom = (themeId: string, light: boolean) => {
+    if (typeof document === "undefined") return;
+    const themes: Record<string, any> = THEMES;
+    const lightTheme = {
+      bg: '#f8fafc', surface: '#ffffff', card: 'rgba(255, 255, 255, 0.85)',
+      border: 'rgba(5, 150, 105, 0.25)', accent: '#059669', secondary: '#0284c7',
+      text: '#0f172a', muted: '#475569', danger: '#e11d48', warning: '#d97706',
+      glow: '0 0 15px rgba(5, 150, 105, 0.2)'
+    };
+    const t = light ? lightTheme : (themes[themeId] || themes.tokyo);
+    const root = document.documentElement;
+    root.setAttribute('data-theme', light ? 'light' : themeId);
+    root.style.setProperty('--cyber-bg', t.bg);
+    root.style.setProperty('--cyber-surface', t.surface);
+    root.style.setProperty('--cyber-card', t.card);
+    root.style.setProperty('--cyber-border', t.border);
+    root.style.setProperty('--cyber-accent', t.accent);
+    root.style.setProperty('--cyber-secondary', t.secondary);
+    root.style.setProperty('--cyber-text', t.text);
+    root.style.setProperty('--cyber-muted', t.muted);
+    root.style.setProperty('--cyber-danger', t.danger);
+    root.style.setProperty('--cyber-warning', t.warning);
+    root.style.setProperty('--cyber-glow', t.glow);
+    if (light) {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    } else {
+      root.classList.remove('light');
+      root.classList.add('dark');
+    }
+  };
+
+  const handleSetTheme = (newTheme: string) => {
+    setThemeProfile(newTheme);
+    syncThemeToDom(newTheme, isLightMode);
+    try {
+      localStorage.setItem("cyber_theme_profile", newTheme);
+    } catch {}
+  };
 
   const handleToggleLightMode = () => {
     if (!isLightMode) {
       setThemeProfile("tokyo");
       setIsLightMode(true);
+      syncThemeToDom("tokyo", true);
+      try {
+        localStorage.setItem("cyber_theme_profile", "tokyo");
+        localStorage.setItem("cyber_light_mode", "true");
+      } catch {}
     } else {
       setIsLightMode(false);
+      syncThemeToDom(themeProfile, false);
+      try {
+        localStorage.setItem("cyber_light_mode", "false");
+      } catch {}
     }
+  };
+
+  const handleToggleCrt = () => {
+    setCrtActive((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("cyber_crt_active", String(next));
+      } catch {}
+      return next;
+    });
   };
 
   // Global hotkey: ~ or Ctrl+K opens Quake terminal
@@ -66,7 +175,31 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const curTheme = THEMES[themeProfile] || THEMES.tokyo;
+  // Listen for browser Back / Forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path.startsWith("/writeups/")) {
+        const id = path.replace("/writeups/", "").replace(/\/$/, "");
+        const found = writeups.find((item) => item.id === id);
+        if (found) {
+          setActiveWriteup(found);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+      }
+      setActiveWriteup(null);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [writeups]);
+
+  // Synchronize CSS variables on client mount and state updates
+  useEffect(() => {
+    syncThemeToDom(themeProfile, isLightMode);
+  }, [themeProfile, isLightMode]);
 
   // Filtered writeups list
   const filteredWriteups = useMemo(() => {
@@ -84,6 +217,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
         !query ||
         item.title.toLowerCase().includes(query) ||
         item.summary.toLowerCase().includes(query) ||
+        (item.event && item.event.toLowerCase().includes(query)) ||
         item.dossier.cve.toLowerCase().includes(query) ||
         item.dossier.targetIp.toLowerCase().includes(query);
 
@@ -91,42 +225,9 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
     });
   }, [writeups, selectedCategory, selectedDifficulty, searchQuery]);
 
-  // Dynamic CSS Variables based on active profile and light mode
-  const cssThemeVariables: React.CSSProperties = useMemo(() => {
-    if (isLightMode) {
-      return {
-        "--cyber-bg": "#f8fafc",
-        "--cyber-surface": "#ffffff",
-        "--cyber-card": "rgba(255, 255, 255, 0.85)",
-        "--cyber-border": "rgba(5, 150, 105, 0.25)",
-        "--cyber-accent": "#059669",
-        "--cyber-secondary": "#0284c7",
-        "--cyber-text": "#0f172a",
-        "--cyber-muted": "#475569",
-        "--cyber-danger": "#e11d48",
-        "--cyber-warning": "#d97706",
-        "--cyber-glow": "0 0 15px rgba(5, 150, 105, 0.2)",
-      } as React.CSSProperties;
-    }
-    return {
-      "--cyber-bg": curTheme.bg,
-      "--cyber-surface": curTheme.surface,
-      "--cyber-card": curTheme.card,
-      "--cyber-border": curTheme.border,
-      "--cyber-accent": curTheme.accent,
-      "--cyber-secondary": curTheme.secondary,
-      "--cyber-text": curTheme.text,
-      "--cyber-muted": curTheme.muted,
-      "--cyber-danger": curTheme.danger,
-      "--cyber-warning": curTheme.warning,
-      "--cyber-glow": curTheme.glow,
-    } as React.CSSProperties;
-  }, [curTheme, isLightMode]);
-
   return (
     <div
-      style={cssThemeVariables}
-      className="min-h-screen flex flex-col text-cyber-text bg-cyber-bg transition-colors duration-300 font-sans selection:bg-cyber-accent selection:text-black relative"
+      className="min-h-screen flex flex-col text-cyber-text bg-cyber-bg font-sans selection:bg-cyber-accent selection:text-black relative"
     >
       {/* CRT Scanline Overlay Effect */}
       {crtActive && (
@@ -146,20 +247,20 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
         activeTheme={themeProfile}
-        setTheme={setThemeProfile}
+        setTheme={handleSetTheme}
         onFilterCategory={setSelectedCategory}
-        onOpenWriteup={(writeup) => setActiveWriteup(writeup)}
+        onOpenWriteup={handleOpenWriteup}
         writeups={writeups}
         crtActive={crtActive}
-        setCrtActive={setCrtActive}
+        setCrtActive={handleToggleCrt}
       />
 
       {/* Navigation Header */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-cyber-surface/85 border-b border-cyber-border transition-colors duration-300">
+      <header className="sticky top-0 z-30 backdrop-blur-md bg-cyber-surface/85 border-b border-cyber-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">
           {/* Logo & Brand */}
           <div
-            onClick={() => setActiveWriteup(null)}
+            onClick={handleNavigateHome}
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div className="relative w-10 h-10 rounded-lg bg-cyber-accent/20 flex items-center justify-center shadow-md shadow-cyber-accent/20 p-1">
@@ -201,7 +302,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
 
             {/* CRT Scanline Toggle Button */}
             <button
-              onClick={() => setCrtActive((prev) => !prev)}
+              onClick={handleToggleCrt}
               className={`p-2 rounded-lg border text-xs transition ${
                 crtActive
                   ? "border-cyber-accent bg-cyber-accent/15 text-cyber-accent"
@@ -227,14 +328,13 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
               {Object.keys(THEMES).map((tKey) => (
                 <button
                   key={tKey}
-                  onClick={() => !isLightMode && setThemeProfile(tKey)}
+                  data-theme-btn={tKey}
+                  onClick={() => !isLightMode && handleSetTheme(tKey)}
                   disabled={isLightMode}
-                  className={`px-2 py-1 rounded text-[11px] transition ${
+                  className={`px-2 py-1 rounded text-[11px] transition text-cyber-muted hover:text-cyber-text ${
                     isLightMode
-                      ? "text-cyber-muted cursor-not-allowed"
-                      : themeProfile === tKey
-                        ? "bg-cyber-accent text-black font-bold"
-                        : "text-cyber-muted hover:text-cyber-text"
+                      ? "cursor-not-allowed"
+                      : ""
                   }`}
                 >
                   {tKey.toUpperCase()}
@@ -268,7 +368,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
           <WriteupReader
             writeup={activeWriteup}
             activeTheme={themeProfile}
-            onBack={() => setActiveWriteup(null)}
+            onBack={handleNavigateHome}
           />
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 animate-fadeIn">
@@ -308,7 +408,10 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
                       Active Theme
                     </div>
                     <div className="text-cyber-accent text-lg font-bold uppercase">
-                      {curTheme.name}
+                      <span className="theme-label-tokyo">Tokyo Cyan</span>
+                      <span className="theme-label-mono">Mono White</span>
+                      <span className="theme-label-blood">Red Team Blood</span>
+                      <span className="theme-label-light">Emerald Light</span>
                     </div>
                   </div>
                   <div className="p-3 rounded-xl bg-cyber-surface/70 border border-cyber-border">
@@ -432,7 +535,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({ initialWriteups }) => {
                     key={w.id}
                     writeup={w}
                     activeTheme={themeProfile}
-                    onSelect={(item) => setActiveWriteup(item)}
+                    onSelect={handleOpenWriteup}
                   />
                 ))}
               </div>

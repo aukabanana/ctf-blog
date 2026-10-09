@@ -1,30 +1,30 @@
 changelog:
   categories:
-    - title: "🚀 Features & Enhancements"
+    - title: "Features & Enhancements"
       labels:
         - "enhancement"
         - "feature"
         - "feat"
-    - title: "🐛 Bug Fixes & Stability"
+    - title: "Bug Fixes & Stability"
       labels:
         - "bug"
         - "fix"
         - "hotfix"
-    - title: "🎨 Design, Themes & UI"
+    - title: "Design, Themes & UI"
       labels:
         - "ui"
         - "style"
         - "design"
         - "theme"
-    - title: "⚡ Performance & Optimization"
+    - title: "Performance & Optimization"
       labels:
         - "performance"
         - "perf"
-    - title: "📝 Documentation & Field Manuals"
+    - title: "Documentation & Field Manuals"
       labels:
         - "documentation"
         - "docs"
-    - title: "🧰 Maintenance & Dependencies"
+    - title: "Maintenance & Dependencies"
       labels:
         - "dependencies"
         - "chore"

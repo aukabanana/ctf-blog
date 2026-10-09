@@ -23,28 +23,41 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
   const diffStyle = diffMap[writeup.difficulty] || diffMap.Medium || DIFFICULTY_COLORS.Medium;
 
   return (
-    <div
-      onClick={() => onSelect(writeup)}
-      className="group relative rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:border-cyber-accent hover:shadow-cyber-glow cursor-pointer flex flex-col justify-between overflow-hidden"
+    <a
+      href={`/writeups/${writeup.id}`}
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey) return;
+        e.preventDefault();
+        onSelect(writeup);
+      }}
+      className="group relative rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:border-cyber-accent hover:shadow-cyber-glow cursor-pointer flex flex-col justify-between overflow-hidden text-inherit no-underline"
     >
       <div className="absolute top-0 right-0 w-24 h-24 bg-cyber-accent/5 rounded-full blur-2xl group-hover:bg-cyber-accent/20 transition-all pointer-events-none" />
 
       <div>
         {/* Top Badges */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide font-mono"
-            style={{
-              backgroundColor: catStyle.bg,
-              color: catStyle.text,
-              border: `1px solid ${catStyle.border}`,
-            }}
-          >
-            <DecryptedText text={writeup.category} hoverOnly={true} speed={15} />
-          </span>
+          <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
+            <span
+              className="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide font-mono mono-badge-override"
+              style={{
+                backgroundColor: catStyle.bg,
+                color: catStyle.text,
+                border: `1px solid ${catStyle.border}`,
+              }}
+            >
+              <DecryptedText text={writeup.category} hoverOnly={true} speed={15} />
+            </span>
+
+            {writeup.event && (
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-cyber-surface/90 border border-cyber-border/70 text-cyber-muted">
+                {writeup.event}
+              </span>
+            )}
+          </div>
 
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-medium font-mono"
+            className="px-2.5 py-0.5 rounded-full text-xs font-medium font-mono mono-badge-override"
             style={{
               backgroundColor: diffStyle.bg,
               color: diffStyle.text,
@@ -85,7 +98,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
           <ChevronRight className="w-4 h-4" />
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -59,7 +59,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
     <div className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 mb-8 shadow-lg relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex items-center justify-between border-b border-cyber-border/40 pb-3 mb-4">
+      <div className="flex items-center justify-between border-b border-cyber-border pb-3 mb-4">
         <div className="flex items-center space-x-2">
           <Crosshair className="w-4 h-4 text-cyber-accent animate-pulse" />
           <span className="font-mono text-xs text-cyber-accent font-bold uppercase tracking-wider">
@@ -105,7 +105,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
-        <div className="p-3 rounded-lg bg-cyber-surface/60 border border-cyber-border/30">
+        <div className="p-3 rounded-lg bg-cyber-bg/50 dark:bg-black/25">
           <div className="text-cyber-muted uppercase text-[10px] mb-1">Target Host / IP</div>
           <div className="text-cyber-text font-bold flex items-center space-x-1.5">
             <Radio className="w-3.5 h-3.5 text-cyber-accent" />
@@ -113,7 +113,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
           </div>
         </div>
 
-        <div className="p-3 rounded-lg bg-cyber-surface/60 border border-cyber-border/30">
+        <div className="p-3 rounded-lg bg-cyber-bg/50 dark:bg-black/25">
           <div className="text-cyber-muted uppercase text-[10px] mb-1">Operating System</div>
           <div className="text-cyber-text font-bold flex items-center space-x-1.5">
             <Server className="w-3.5 h-3.5 text-cyber-secondary" />
@@ -121,7 +121,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
           </div>
         </div>
 
-        <div className="p-3 rounded-lg bg-cyber-surface/60 border border-cyber-border/30">
+        <div className="p-3 rounded-lg bg-cyber-bg/50 dark:bg-black/25">
           <div className="text-cyber-muted uppercase text-[10px] mb-1">Architecture</div>
           <div className="text-cyber-text font-bold flex items-center space-x-1.5">
             <Cpu className="w-3.5 h-3.5 text-cyber-accent" />
@@ -129,7 +129,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
           </div>
         </div>
 
-        <div className="p-3 rounded-lg bg-cyber-surface/60 border border-cyber-border/30">
+        <div className="p-3 rounded-lg bg-cyber-bg/50 dark:bg-black/25">
           <div className="text-cyber-muted uppercase text-[10px] mb-1">Primary Vulnerability</div>
           <div className="text-cyber-danger font-bold flex items-center space-x-1.5">
             <Shield className="w-3.5 h-3.5" />
@@ -139,12 +139,12 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
       </div>
 
       {dossier.services && dossier.services.length > 0 && (
-        <div className="mt-4 pt-3 border-t border-cyber-border/30 flex flex-wrap items-center gap-2 text-xs font-mono">
+        <div className="mt-4 pt-3 border-t border-cyber-border flex flex-wrap items-center gap-2 text-xs font-mono">
           <span className="text-cyber-muted text-[11px]">Exposed Services:</span>
           {dossier.services.map((svc, idx) => (
             <span
               key={idx}
-              className="bg-cyber-surface px-2.5 py-1 rounded text-cyber-text text-[11px] border border-cyber-border/40"
+              className="bg-cyber-bg/50 dark:bg-black/25 px-2.5 py-1 rounded-md text-cyber-text text-[11px]"
             >
               {svc}
             </span>

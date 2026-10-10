@@ -49,7 +49,7 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
   };
 
   return (
-    <div className="relative p-5 sm:p-6 rounded-xl border-2 border-dashed border-cyber-accent/60 bg-cyber-card backdrop-blur-xl my-6 transition-all duration-300">
+    <div className="relative p-5 sm:p-6 rounded-xl border border-cyber-accent/60 bg-cyber-card backdrop-blur-xl my-6 transition-all duration-300 shadow-lg">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2 text-cyber-accent text-xs font-mono tracking-wider uppercase">
@@ -62,7 +62,7 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
                 {flag}
               </span>
             ) : (
-              <span className="filter blur-md select-none text-cyber-muted tracking-widest bg-white/5 px-3 py-1 rounded">
+              <span className="filter blur-lg select-none text-cyber-muted tracking-widest bg-white/5 px-3 py-1 rounded">
                 STUDIO&#123;pwn3d_fl4g_h1dd3n_h3x_00000&#125;
               </span>
             )}
@@ -75,7 +75,7 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
             <button
               onClick={handleReveal}
               disabled={loading}
-              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-cyber-accent text-black font-semibold text-xs tracking-wider flex items-center justify-center space-x-2 hover:opacity-90 active:scale-95 transition shadow-lg shadow-cyber-accent/20 disabled:opacity-50"
+              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-cyber-accent text-white dark:text-black font-semibold text-xs tracking-wider flex items-center justify-center space-x-2 hover:opacity-90 active:scale-95 transition shadow-lg shadow-cyber-accent/20 disabled:opacity-50"
             >
               {loading ? (
                 <>

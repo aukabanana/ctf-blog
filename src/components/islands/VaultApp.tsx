@@ -475,7 +475,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({
                           ? isLightMode
                             ? "bg-cyber-accent text-white font-bold shadow-md shadow-cyber-accent/25"
                             : "bg-cyber-accent text-black font-bold shadow-md shadow-cyber-accent/25"
-                          : "bg-cyber-card border border-cyber-border text-cyber-muted hover:text-cyber-text hover:border-cyber-accent/50"
+                          : "bg-cyber-card border border-cyber-border text-cyber-muted hover:text-cyber-text hover:border-cyber-accent"
                       }`}
                     >
                       <DecryptedText text={cat} hoverOnly={true} speed={15} />
@@ -550,7 +550,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({
       </main>
 
       {/* Footer */}
-      <footer className="mt-20 border-t border-cyber-border/40 text-xs font-mono text-cyber-muted bg-cyber-surface/60">
+      <footer className="mt-20 border-t border-cyber-border text-xs font-mono text-cyber-muted bg-cyber-surface/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />

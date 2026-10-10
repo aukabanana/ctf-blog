@@ -49,7 +49,7 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
   };
 
   return (
-    <div className="relative p-5 sm:p-6 rounded-xl border border-cyber-accent/60 bg-cyber-card backdrop-blur-xl my-6 transition-all duration-300 shadow-lg">
+    <div className="relative p-5 sm:p-6 rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl my-6 transition-all duration-300 shadow-lg">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2 text-cyber-accent text-xs font-mono tracking-wider uppercase">
@@ -58,7 +58,7 @@ export const SpoilerFlagBox: React.FC<SpoilerFlagBoxProps> = ({ flag: initialFla
           </div>
           <div className="mt-2 font-mono text-sm sm:text-base break-all">
             {revealed ? (
-              <span className="text-cyber-accent font-bold tracking-wide select-all bg-cyber-accent/10 px-2 py-1 rounded border border-cyber-accent/30">
+              <span className="text-cyber-accent font-bold tracking-wide select-all bg-cyber-accent/15 px-2.5 py-1 rounded">
                 {flag}
               </span>
             ) : (

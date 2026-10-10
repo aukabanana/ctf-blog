@@ -93,7 +93,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
       </div>
 
       {/* Footer Info */}
-      <div className="pt-3 border-t border-cyber-border/40 flex items-center justify-between text-xs font-mono text-cyber-muted">
+      <div className="pt-3 border-t border-cyber-border flex items-center justify-between text-xs font-mono text-cyber-muted">
         <div className="flex items-center space-x-1.5 truncate max-w-[65%]">
           <Shield className="w-3.5 h-3.5 text-cyber-accent shrink-0" />
           <span className="font-semibold text-cyber-text truncate">{writeup.author}</span>

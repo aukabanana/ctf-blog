@@ -12,18 +12,18 @@ export async function getWriteups(): Promise<WriteupItem[]> {
     const parsed: WriteupItem[] = collection
       .filter((entry: CollectionEntry<'writeups'>) => !entry.id.startsWith('_'))
       .map((entry: CollectionEntry<'writeups'>) => {
-        const body = entry.body || '';
+        const body = (entry.body || '').replace(/\r\n/g, '\n');
 
         // Split body into sections by "## " headers
-        const rawSections = body.split(/(?=^##\s+)/m).filter((s: string) => s.trim().length > 0);
+        const rawSections = body.split(/(?=^##\s+)/m).filter((s: string) => /^##\s+/m.test(s));
 
         const sections: WriteupSection[] = rawSections.map((raw: string) => {
           const lines = raw.trim().split('\n');
           const titleLine = lines[0].replace(/^##\s+/, '').trim();
-          const rest = lines.slice(1).join('\n');
+          let rest = lines.slice(1).join('\n').replace(/^---\s*$/gm, '').trim();
 
           // Extract code block if present
-          const codeMatch = rest.match(/```(\w+)?\n([\s\S]*?)```/);
+          const codeMatch = rest.match(/```(\w+)?\r?\n([\s\S]*?)```/);
           let code: string | undefined = undefined;
           let language: string | undefined = undefined;
           let content = rest;
@@ -31,12 +31,12 @@ export async function getWriteups(): Promise<WriteupItem[]> {
           if (codeMatch) {
             language = codeMatch[1] || 'bash';
             code = codeMatch[2].trim();
-            content = rest.replace(/```(\w+)?\n[\s\S]*?```/, '').trim();
+            content = rest.replace(/```(\w+)?\r?\n[\s\S]*?```/, '').replace(/^---\s*$/gm, '').trim();
           }
 
           return {
             title: titleLine,
-            content: content || 'Detailed walkthrough steps and analysis.',
+            content: content || rest || 'Detailed walkthrough steps and analysis.',
             code,
             language,
           };

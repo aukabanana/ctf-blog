@@ -13,6 +13,61 @@ export interface WriteupReaderProps {
   onBack: () => void;
 }
 
+interface ContentPart {
+  type: 'text' | 'code';
+  text: string;
+  language?: string;
+}
+
+function parseSectionParts(content: string, fallbackCode?: string, fallbackLang?: string): ContentPart[] {
+  const parts: ContentPart[] = [];
+  const normalized = (content || '').replace(/\r\n/g, '\n').replace(/^---\s*$/gm, '').trim();
+
+  const codeRegex = /```(\w+)?\r?\n([\s\S]*?)```/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = codeRegex.exec(normalized)) !== null) {
+    if (match.index > lastIndex) {
+      const text = normalized.slice(lastIndex, match.index).replace(/^---\s*$/gm, '').trim();
+      if (text) {
+        parts.push({ type: 'text', text });
+      }
+    }
+    const code = match[2].trim();
+    if (code) {
+      parts.push({
+        type: 'code',
+        language: match[1] || 'bash',
+        text: code,
+      });
+    }
+    lastIndex = codeRegex.lastIndex;
+  }
+
+  if (lastIndex < normalized.length) {
+    const text = normalized.slice(lastIndex).replace(/^---\s*$/gm, '').trim();
+    if (text) {
+      parts.push({ type: 'text', text });
+    }
+  }
+
+  // If there's a fallbackCode (like from sample writeups) not yet included
+  if (fallbackCode && fallbackCode.trim()) {
+    const trimmedCode = fallbackCode.trim();
+    const alreadyIncluded = parts.some((p) => p.type === 'code' && p.text === trimmedCode);
+    if (!alreadyIncluded) {
+      parts.push({
+        type: 'code',
+        language: fallbackLang || 'bash',
+        text: trimmedCode,
+      });
+    }
+  }
+
+  return parts;
+}
+
 export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeTheme, onBack }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -63,36 +118,51 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
 
       {/* Writeup Main Body Content Sections */}
       <div className="space-y-10">
-        {writeup.sections.map((sec, idx) => (
-          <section
-            key={idx}
-            id={writeup.killChain[idx] ? writeup.killChain[idx].id : `step-${idx + 1}`}
-            className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-6 shadow-lg scroll-mt-32"
-          >
-            <div className="flex items-center space-x-3 mb-4">
-              <span className="w-7 h-7 rounded-lg bg-cyber-accent/20 flex items-center justify-center font-mono text-cyber-accent font-bold text-xs">
-                0{idx + 1}
-              </span>
-              <h2 className="text-lg sm:text-xl font-bold text-cyber-text font-mono">
-                {sec.title}
-              </h2>
-            </div>
+        {writeup.sections.map((sec, idx) => {
+          const parts = parseSectionParts(sec.content, sec.code, sec.language);
+          return (
+            <section
+              key={idx}
+              id={writeup.killChain[idx] ? writeup.killChain[idx].id : `step-${idx + 1}`}
+              className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-6 shadow-lg scroll-mt-32"
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <span className="w-7 h-7 rounded-lg bg-cyber-accent/20 flex items-center justify-center font-mono text-cyber-accent font-bold text-xs">
+                  0{idx + 1}
+                </span>
+                <h2 className="text-lg sm:text-xl font-bold text-cyber-text font-mono">
+                  {sec.title}
+                </h2>
+              </div>
 
-            <p className="text-sm sm:text-base text-cyber-muted leading-relaxed whitespace-pre-line mb-4 font-sans">
-              {sec.content}
-            </p>
-
-            {sec.code && (
-              <TerminalCodeBlock
-                code={sec.code}
-                language={sec.language || 'bash'}
-                path={`studio@pwnbox:~/${writeup.id}$`}
-                downloadName={sec.downloadName}
-                activeTheme={activeTheme}
-              />
-            )}
-          </section>
-        ))}
+              {parts.length > 0 ? (
+                parts.map((part, pIdx) =>
+                  part.type === 'text' ? (
+                    <p
+                      key={pIdx}
+                      className="text-sm sm:text-base text-cyber-muted leading-relaxed whitespace-pre-line mb-4 font-sans"
+                    >
+                      {part.text}
+                    </p>
+                  ) : (
+                    <TerminalCodeBlock
+                      key={pIdx}
+                      code={part.text}
+                      language={part.language || 'bash'}
+                      path={`studio@pwnbox:~/${writeup.id}$`}
+                      downloadName={sec.downloadName}
+                      activeTheme={activeTheme}
+                    />
+                  )
+                )
+              ) : (
+                <p className="text-sm sm:text-base text-cyber-muted leading-relaxed whitespace-pre-line mb-4 font-sans">
+                  {sec.content || 'Detailed walkthrough steps and analysis.'}
+                </p>
+              )}
+            </section>
+          );
+        })}
       </div>
 
       {/* Spoiler Flag Box */}

@@ -23,7 +23,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
       {/* Return Button */}
       <button
         onClick={onBack}
-        className="mb-6 inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-surface/80 hover:bg-cyber-border/40 text-cyber-text hover:text-cyber-accent font-mono text-xs transition"
+        className="mb-6 inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-surface/80 hover:bg-cyber-surface hover:border-cyber-accent text-cyber-text hover:text-cyber-accent font-mono text-xs transition"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Vault Dashboard</span>
@@ -32,8 +32,9 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
       {/* Header Info */}
       <div className="mb-6">
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyber-accent/15 text-cyber-accent border border-cyber-accent/30 font-mono">
-            MISSION WRITEUP ID: {writeup.id}
+          <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-cyber-accent/15 text-cyber-accent font-mono inline-flex items-center space-x-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-accent animate-pulse shrink-0" />
+            <span>MISSION WRITEUP ID: {writeup.id}</span>
           </span>
           <span className="text-xs font-mono text-cyber-muted">
             Published: {writeup.date} by {writeup.author} {writeup.team ? `(${writeup.team})` : ''}
@@ -69,7 +70,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
             className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-6 shadow-lg scroll-mt-32"
           >
             <div className="flex items-center space-x-3 mb-4">
-              <span className="w-7 h-7 rounded-lg bg-cyber-accent/20 border border-cyber-accent/40 flex items-center justify-center font-mono text-cyber-accent font-bold text-xs">
+              <span className="w-7 h-7 rounded-lg bg-cyber-accent/20 flex items-center justify-center font-mono text-cyber-accent font-bold text-xs">
                 0{idx + 1}
               </span>
               <h2 className="text-lg sm:text-xl font-bold text-cyber-text font-mono">

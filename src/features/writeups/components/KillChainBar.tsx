@@ -34,14 +34,14 @@ export const KillChainBar: React.FC<KillChainBarProps> = ({ killChain }) => {
               onClick={() => scrollToStep(step.id, idx)}
               className={`flex-shrink-0 flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
                 isActive
-                  ? 'bg-cyber-accent text-black font-bold shadow-md shadow-cyber-accent/20'
+                  ? 'bg-cyber-accent text-white dark:text-black killchain-step-active font-bold shadow-md shadow-cyber-accent/20'
                   : 'bg-cyber-surface/60 text-cyber-muted hover:text-cyber-text hover:bg-cyber-border/40 border border-cyber-border/40'
               }`}
             >
               <span>{step.name}</span>
               {idx < killChain.length - 1 && (
                 <ChevronRight
-                  className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-cyber-muted'}`}
+                  className={`w-3.5 h-3.5 ${isActive ? 'text-white dark:text-black' : 'text-cyber-muted'}`}
                 />
               )}
             </button>

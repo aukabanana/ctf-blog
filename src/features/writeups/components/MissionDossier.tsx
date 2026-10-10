@@ -2,16 +2,24 @@ import React from 'react';
 import { Crosshair, Radio, Server, Cpu, Shield } from 'lucide-react';
 import type { DossierData, BadgeStyle } from '../types';
 
-const MONO_BADGE: BadgeStyle = { bg: 'rgba(255,255,255,0.06)', text: '#a0a0a0', border: 'rgba(255,255,255,0.12)' };
+const DARK_GLASS_BG = 'rgba(255, 255, 255, 0.05)';
+const DARK_GLASS_SHADOW = 'inset 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.3)';
+
+const MONO_BADGE: BadgeStyle = {
+  color: '#e2e8f0',
+  bg: DARK_GLASS_BG,
+  text: '#e2e8f0',
+  shadow: DARK_GLASS_SHADOW,
+};
 
 export const CATEGORY_COLORS: Record<string, BadgeStyle> = {
-  Web:       { bg: 'rgba(59, 130, 246, 0.2)',  text: '#60a5fa', border: 'rgba(59, 130, 246, 0.35)' },
-  Pwn:       { bg: 'rgba(239, 68, 68, 0.2)',   text: '#f87171', border: 'rgba(239, 68, 68, 0.35)'  },
-  Crypto:    { bg: 'rgba(168, 85, 247, 0.2)',  text: '#c084fc', border: 'rgba(168, 85, 247, 0.35)' },
-  Rev:       { bg: 'rgba(245, 158, 11, 0.2)',  text: '#fbbf24', border: 'rgba(245, 158, 11, 0.35)' },
-  Forensics: { bg: 'rgba(20, 184, 166, 0.2)',  text: '#2dd4bf', border: 'rgba(20, 184, 166, 0.35)' },
-  OSINT:     { bg: 'rgba(6, 182, 212, 0.2)',   text: '#22d3ee', border: 'rgba(6, 182, 212, 0.35)'  },
-  Misc:      { bg: 'rgba(107, 114, 128, 0.2)', text: '#9ca3af', border: 'rgba(107, 114, 128, 0.35)'},
+  Web:       { color: '#38bdf8', text: '#38bdf8', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Pwn:       { color: '#f87171', text: '#f87171', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Crypto:    { color: '#c084fc', text: '#c084fc', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Rev:       { color: '#fbbf24', text: '#fbbf24', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Forensics: { color: '#2dd4bf', text: '#2dd4bf', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  OSINT:     { color: '#22d3ee', text: '#22d3ee', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Misc:      { color: '#94a3b8', text: '#94a3b8', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
 };
 
 export const CATEGORY_COLORS_MONO: Record<string, BadgeStyle> = {
@@ -20,10 +28,10 @@ export const CATEGORY_COLORS_MONO: Record<string, BadgeStyle> = {
 };
 
 export const DIFFICULTY_COLORS: Record<string, BadgeStyle> = {
-  Easy:   { bg: 'rgba(34, 197, 94, 0.2)',  text: '#4ade80', border: 'rgba(34, 197, 94, 0.4)'  },
-  Medium: { bg: 'rgba(234, 179, 8, 0.2)',  text: '#facc15', border: 'rgba(234, 179, 8, 0.4)'  },
-  Hard:   { bg: 'rgba(249, 115, 22, 0.2)', text: '#fb923c', border: 'rgba(249, 115, 22, 0.4)' },
-  Insane: { bg: 'rgba(220, 38, 38, 0.25)', text: '#ef4444', border: 'rgba(220, 38, 38, 0.5)'  },
+  Easy:   { color: '#4ade80', text: '#4ade80', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Medium: { color: '#facc15', text: '#facc15', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Hard:   { color: '#fb923c', text: '#fb923c', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
+  Insane: { color: '#ef4444', text: '#ef4444', bg: DARK_GLASS_BG, shadow: DARK_GLASS_SHADOW },
 };
 
 export const DIFFICULTY_COLORS_MONO: Record<string, BadgeStyle> = {
@@ -60,23 +68,37 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
         </div>
         <div className="flex items-center space-x-2">
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-semibold mono-badge-override"
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono backdrop-blur-md mono-badge-override"
             style={{
               backgroundColor: catStyle.bg,
-              color: catStyle.text,
-              border: `1px solid ${catStyle.border}`,
+              color: catStyle.color,
+              boxShadow: catStyle.shadow,
             }}
           >
+            <span
+              className="w-1.5 h-1.5 rounded-full mr-1.5 shrink-0"
+              style={{
+                backgroundColor: catStyle.color,
+                boxShadow: `0 0 6px ${catStyle.color}`,
+              }}
+            />
             {category}
           </span>
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-semibold mono-badge-override"
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono backdrop-blur-md mono-badge-override"
             style={{
               backgroundColor: diffStyle.bg,
-              color: diffStyle.text,
-              border: `1px solid ${diffStyle.border}`,
+              color: diffStyle.color,
+              boxShadow: diffStyle.shadow,
             }}
           >
+            <span
+              className="w-1.5 h-1.5 rounded-full mr-1.5 shrink-0"
+              style={{
+                backgroundColor: diffStyle.color,
+                boxShadow: `0 0 6px ${diffStyle.color}`,
+              }}
+            />
             {difficulty}
           </span>
         </div>

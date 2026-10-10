@@ -41,7 +41,9 @@ export interface WriteupItem {
 }
 
 export interface BadgeStyle {
-  bg: string;
-  text: string;
-  border: string;
+  color: string;
+  bg?: string;
+  text?: string;
+  border?: string;
+  shadow?: string;
 }

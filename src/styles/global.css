@@ -118,9 +118,19 @@ html[data-theme="light"] .html-light-logo {
 
 /* Monochrome style overrides for badges and terminal dots without hydration flash */
 html[data-theme="mono"] .mono-badge-override {
-  background-color: rgba(255, 255, 255, 0.06) !important;
-  color: #a0a0a0 !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+html[data-theme="mono"] .mono-badge-override span.rounded-full {
+  background-color: #a0a0a0 !important;
+  box-shadow: none !important;
+}
+html.light .mono-badge-override,
+html[data-theme="light"] .mono-badge-override {
+  background-color: var(--cyber-card) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
 }
 html[data-theme="mono"] .mono-dot-red {
   background-color: #555555 !important;

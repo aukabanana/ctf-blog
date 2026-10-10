@@ -37,33 +37,39 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
       <div>
         {/* Top Badges */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
-            <span
-              className="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide font-mono mono-badge-override"
-              style={{
-                backgroundColor: catStyle.bg,
-                color: catStyle.text,
-                border: `1px solid ${catStyle.border}`,
-              }}
-            >
-              <DecryptedText text={writeup.category} hoverOnly={true} speed={15} />
-            </span>
-
-            {writeup.event && (
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-cyber-surface/90 border border-cyber-border/70 text-cyber-muted">
-                {writeup.event}
-              </span>
-            )}
-          </div>
-
           <span
-            className="px-2.5 py-0.5 rounded-full text-xs font-medium font-mono mono-badge-override"
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide font-mono backdrop-blur-md mono-badge-override"
             style={{
-              backgroundColor: diffStyle.bg,
-              color: diffStyle.text,
-              border: `1px solid ${diffStyle.border}`,
+              backgroundColor: catStyle.bg,
+              color: catStyle.color,
+              boxShadow: catStyle.shadow,
             }}
           >
+            <span
+              className="w-1.5 h-1.5 rounded-full mr-1.5 shrink-0"
+              style={{
+                backgroundColor: catStyle.color,
+                boxShadow: `0 0 6px ${catStyle.color}`,
+              }}
+            />
+            <DecryptedText text={writeup.category} hoverOnly={true} speed={15} />
+          </span>
+
+          <span
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium font-mono backdrop-blur-md mono-badge-override"
+            style={{
+              backgroundColor: diffStyle.bg,
+              color: diffStyle.color,
+              boxShadow: diffStyle.shadow,
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full mr-1.5 shrink-0"
+              style={{
+                backgroundColor: diffStyle.color,
+                boxShadow: `0 0 6px ${diffStyle.color}`,
+              }}
+            />
             {writeup.difficulty}
           </span>
         </div>
@@ -88,12 +94,18 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
 
       {/* Footer Info */}
       <div className="pt-3 border-t border-cyber-border/40 flex items-center justify-between text-xs font-mono text-cyber-muted">
-        <div className="flex items-center space-x-1.5">
-          <Shield className="w-3.5 h-3.5 text-cyber-accent" />
-          <span>{writeup.author}</span>
+        <div className="flex items-center space-x-1.5 truncate max-w-[65%]">
+          <Shield className="w-3.5 h-3.5 text-cyber-accent shrink-0" />
+          <span className="font-semibold text-cyber-text truncate">{writeup.author}</span>
+          {writeup.event && (
+            <>
+              <span className="text-cyber-muted/40">•</span>
+              <span className="text-cyber-muted truncate">{writeup.event}</span>
+            </>
+          )}
         </div>
 
-        <div className="flex items-center space-x-1 text-cyber-accent group-hover:translate-x-1 transition-transform">
+        <div className="flex items-center space-x-1 text-cyber-accent group-hover:translate-x-1 transition-transform shrink-0">
           <span className="font-semibold text-[11px]">ACCESS VAULT</span>
           <ChevronRight className="w-4 h-4" />
         </div>

@@ -378,7 +378,7 @@ export const VaultApp: React.FC<VaultAppProps> = ({
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 animate-fadeIn">
             {/* Hero Banner Section */}
-            <div className="relative rounded-2xl border border-cyber-border bg-cyber-card backdrop-blur-2xl p-6 sm:p-10 mb-10 overflow-hidden shadow-sm">
+            <div className="relative rounded-2xl border border-cyber-border bg-cyber-card backdrop-blur-2xl p-6 sm:p-10 mb-10 overflow-hidden shadow-lg">
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10 max-w-3xl">

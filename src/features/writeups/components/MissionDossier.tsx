@@ -56,7 +56,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
   const diffStyle = (isMono ? DIFFICULTY_COLORS_MONO : DIFFICULTY_COLORS)[difficulty] || DIFFICULTY_COLORS.Medium;
 
   return (
-    <div className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 mb-8 shadow-xl relative overflow-hidden">
+    <div className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 mb-8 shadow-lg relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="flex items-center justify-between border-b border-cyber-border/40 pb-3 mb-4">

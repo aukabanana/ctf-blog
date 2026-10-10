@@ -30,7 +30,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ writeup, activeThe
         e.preventDefault();
         onSelect(writeup);
       }}
-      className="group relative rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:border-cyber-accent hover:shadow-cyber-glow cursor-pointer flex flex-col justify-between overflow-hidden text-inherit no-underline"
+      className="group relative rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-5 sm:p-6 transition-all duration-300 hover:border-cyber-accent hover:shadow-cyber-glow cursor-pointer flex flex-col justify-between overflow-hidden text-inherit no-underline shadow-lg"
     >
       <div className="absolute top-0 right-0 w-24 h-24 bg-cyber-accent/5 rounded-full blur-2xl group-hover:bg-cyber-accent/20 transition-all pointer-events-none" />
 

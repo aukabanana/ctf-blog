@@ -39,7 +39,7 @@ export const TerminalCodeBlock: React.FC<TerminalCodeBlockProps> = ({
   };
 
   return (
-    <div className="rounded-xl overflow-hidden border border-cyber-border bg-cyber-bg/95 shadow-2xl my-4 text-xs sm:text-sm font-mono backdrop-blur-md">
+    <div className="rounded-xl overflow-hidden border border-cyber-border bg-cyber-bg/95 shadow-lg my-4 text-xs sm:text-sm font-mono backdrop-blur-md">
       {/* Shell Titlebar */}
       <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-cyber-surface/90 border-b border-cyber-border/40 select-none">
         <div className="flex items-center space-x-2">

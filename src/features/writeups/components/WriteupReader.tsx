@@ -66,7 +66,7 @@ export const WriteupReader: React.FC<WriteupReaderProps> = ({ writeup, activeThe
           <section
             key={idx}
             id={writeup.killChain[idx] ? writeup.killChain[idx].id : `step-${idx + 1}`}
-            className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-6 shadow-xl scroll-mt-32"
+            className="rounded-xl border border-cyber-border bg-cyber-card backdrop-blur-xl p-6 shadow-lg scroll-mt-32"
           >
             <div className="flex items-center space-x-3 mb-4">
               <span className="w-7 h-7 rounded-lg bg-cyber-accent/20 border border-cyber-accent/40 flex items-center justify-center font-mono text-cyber-accent font-bold text-xs">

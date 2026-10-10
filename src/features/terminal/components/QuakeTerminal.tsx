@@ -258,7 +258,7 @@ Try reading the writeups to earn real operational flags!`,
         </div>
 
         {/* Terminal Input Prompt */}
-        <div className="p-3 bg-cyber-surface/90 border-t border-cyber-border/40 flex items-center space-x-2">
+        <div className="p-3 bg-cyber-surface/90 border-t border-cyber-border flex items-center space-x-2">
           <span className="text-cyber-accent font-bold text-xs sm:text-sm whitespace-nowrap">
             studio@vault:~$
           </span>

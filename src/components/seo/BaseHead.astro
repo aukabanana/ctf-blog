@@ -8,10 +8,11 @@ export interface Props {
 const {
   title = 'auka-ctf-blog',
   description = 'Comprehensive CTF writeup repository and offensive security archives from STUDIO Comp.',
-  image = '/favicon-w.svg',
+  image = '/og-preview.png',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://vault.auka.workers.dev');
+const ogImageURL = new URL(image, Astro.site || 'https://vault.auka.workers.dev');
 ---
 
 <!-- Global Metadata -->
@@ -32,17 +33,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={ogImageURL} />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

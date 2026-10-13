@@ -5,6 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://vault.auka.workers.dev',
   adapter: cloudflare({
     imageService: 'passthrough',
   }),
